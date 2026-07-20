@@ -1,0 +1,12 @@
+scripts/check*.py
+
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# large/generated data & model artifacts (see CLAUDE.md)
+checkpoints/
+data/
+
+# local-only Claude Code settings
+.claude/settings.local.json

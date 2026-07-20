@@ -1,0 +1,612 @@
+nohup: ignoring input
+
+[Model] 로드: Qwen/Qwen2.5-VL-3B-Instruct
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+  처음부터 학습
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  6.82it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  8.33it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  8.05it/s]
+trainable params: 37,152,768 || all params: 3,791,775,744 || trainable%: 0.9798
+
+DataLoader 구성 중...
+[build_token_to_images] 총 토큰 수: 4072
+[DriveLMDataset] 총 샘플 수: 377983
+[NuScenesQADataset] 전체: 376604, 매핑 가능: 54607
+
+[DataLoader 구성]
+  DriveLM:     377,983개  (배치 내 목표 비율: 40%)
+  NuScenes-QA: 54,607개  (배치 내 목표 비율: 60%)
+  batch_size:  4
+  전체 스텝/epoch: 108,147
+
+============================================================
+Baseline: Student Direct Fine-tuning
+  Model:          Qwen/Qwen2.5-VL-3B-Instruct + LoRA
+  시작:           처음부터
+  epochs:         1
+  batch_size:     4
+  effective_batch:16
+  total_steps:    27037
+  warmup_steps:   1351
+  learning_rate:  2e-05
+  loss:           L_task only (No Distillation)
+============================================================
+
+/venv/main/lib/python3.10/site-packages/torch/nn/modules/conv.py:605: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+  return F.conv3d(
+  [07:42:50] [Epoch 1/1] step 50/27037 | loss 5.7399 | lr 7.40e-07 | DriveLM 2/4
+  [07:46:12] [Epoch 1/1] step 100/27037 | loss 5.7356 | lr 1.48e-06 | DriveLM 2/4
+  [07:49:34] [Epoch 1/1] step 150/27037 | loss 5.4128 | lr 2.22e-06 | DriveLM 3/4
+  [07:52:56] [Epoch 1/1] step 200/27037 | loss 4.7901 | lr 2.96e-06 | DriveLM 0/4
+  [07:56:18] [Epoch 1/1] step 250/27037 | loss 4.2878 | lr 3.70e-06 | DriveLM 2/4
+  [07:59:40] [Epoch 1/1] step 300/27037 | loss 3.9102 | lr 4.44e-06 | DriveLM 2/4
+  [08:03:01] [Epoch 1/1] step 350/27037 | loss 3.6096 | lr 5.18e-06 | DriveLM 0/4
+  [08:06:23] [Epoch 1/1] step 400/27037 | loss 3.3572 | lr 5.92e-06 | DriveLM 2/4
+  [08:09:45] [Epoch 1/1] step 450/27037 | loss 3.1364 | lr 6.66e-06 | DriveLM 2/4
+  [08:13:07] [Epoch 1/1] step 500/27037 | loss 2.9376 | lr 7.40e-06 | DriveLM 1/4
+  [08:16:29] [Epoch 1/1] step 550/27037 | loss 2.7715 | lr 8.14e-06 | DriveLM 2/4
+  [08:19:50] [Epoch 1/1] step 600/27037 | loss 2.6254 | lr 8.88e-06 | DriveLM 0/4
+  [08:23:12] [Epoch 1/1] step 650/27037 | loss 2.4983 | lr 9.62e-06 | DriveLM 1/4
+  [08:26:34] [Epoch 1/1] step 700/27037 | loss 2.3819 | lr 1.04e-05 | DriveLM 1/4
+  [08:29:56] [Epoch 1/1] step 750/27037 | loss 2.2781 | lr 1.11e-05 | DriveLM 2/4
+  [08:33:18] [Epoch 1/1] step 800/27037 | loss 2.1854 | lr 1.18e-05 | DriveLM 2/4
+  [08:36:39] [Epoch 1/1] step 850/27037 | loss 2.1035 | lr 1.26e-05 | DriveLM 3/4
+  [08:40:01] [Epoch 1/1] step 900/27037 | loss 2.0298 | lr 1.33e-05 | DriveLM 1/4
+  [08:43:22] [Epoch 1/1] step 950/27037 | loss 1.9629 | lr 1.41e-05 | DriveLM 1/4
+  [08:46:44] [Epoch 1/1] step 1000/27037 | loss 1.8995 | lr 1.48e-05 | DriveLM 0/4
+  체크포인트 저장: checkpoints/student_baseline/step_1000
+  [08:50:06] [Epoch 1/1] step 1050/27037 | loss 1.8446 | lr 1.55e-05 | DriveLM 1/4
+  [08:53:27] [Epoch 1/1] step 1100/27037 | loss 1.7924 | lr 1.63e-05 | DriveLM 1/4
+  [08:56:50] [Epoch 1/1] step 1150/27037 | loss 1.7454 | lr 1.70e-05 | DriveLM 2/4
+  [09:00:11] [Epoch 1/1] step 1200/27037 | loss 1.7029 | lr 1.78e-05 | DriveLM 1/4
+  [09:03:31] [Epoch 1/1] step 1250/27037 | loss 1.6607 | lr 1.85e-05 | DriveLM 2/4
+  [09:06:52] [Epoch 1/1] step 1300/27037 | loss 1.6247 | lr 1.92e-05 | DriveLM 2/4
+  [09:10:13] [Epoch 1/1] step 1350/27037 | loss 1.5903 | lr 2.00e-05 | DriveLM 1/4
+  [09:13:33] [Epoch 1/1] step 1400/27037 | loss 1.5585 | lr 2.00e-05 | DriveLM 1/4
+  [09:16:54] [Epoch 1/1] step 1450/27037 | loss 1.5276 | lr 2.00e-05 | DriveLM 1/4
+  [09:20:15] [Epoch 1/1] step 1500/27037 | loss 1.4986 | lr 2.00e-05 | DriveLM 2/4
+  [09:23:36] [Epoch 1/1] step 1550/27037 | loss 1.4723 | lr 2.00e-05 | DriveLM 0/4
+  [09:26:57] [Epoch 1/1] step 1600/27037 | loss 1.4466 | lr 2.00e-05 | DriveLM 0/4
+  [09:30:18] [Epoch 1/1] step 1650/27037 | loss 1.4221 | lr 2.00e-05 | DriveLM 2/4
+  [09:33:38] [Epoch 1/1] step 1700/27037 | loss 1.3983 | lr 2.00e-05 | DriveLM 3/4
+  [09:37:00] [Epoch 1/1] step 1750/27037 | loss 1.3763 | lr 2.00e-05 | DriveLM 1/4
+  [09:40:21] [Epoch 1/1] step 1800/27037 | loss 1.3546 | lr 2.00e-05 | DriveLM 1/4
+  [09:43:42] [Epoch 1/1] step 1850/27037 | loss 1.3358 | lr 2.00e-05 | DriveLM 1/4
+  [09:47:03] [Epoch 1/1] step 1900/27037 | loss 1.3177 | lr 2.00e-05 | DriveLM 0/4
+  [09:50:24] [Epoch 1/1] step 1950/27037 | loss 1.3000 | lr 2.00e-05 | DriveLM 1/4
+  [09:53:45] [Epoch 1/1] step 2000/27037 | loss 1.2830 | lr 2.00e-05 | DriveLM 0/4
+  체크포인트 저장: checkpoints/student_baseline/step_2000
+  [09:57:07] [Epoch 1/1] step 2050/27037 | loss 1.2672 | lr 2.00e-05 | DriveLM 1/4
+  [10:00:28] [Epoch 1/1] step 2100/27037 | loss 1.2519 | lr 2.00e-05 | DriveLM 0/4
+  [10:03:49] [Epoch 1/1] step 2150/27037 | loss 1.2373 | lr 2.00e-05 | DriveLM 2/4
+  [10:07:10] [Epoch 1/1] step 2200/27037 | loss 1.2229 | lr 1.99e-05 | DriveLM 1/4
+  [10:10:31] [Epoch 1/1] step 2250/27037 | loss 1.2093 | lr 1.99e-05 | DriveLM 1/4
+  [10:13:52] [Epoch 1/1] step 2300/27037 | loss 1.1952 | lr 1.99e-05 | DriveLM 2/4
+  [10:17:13] [Epoch 1/1] step 2350/27037 | loss 1.1834 | lr 1.99e-05 | DriveLM 0/4
+  [10:20:33] [Epoch 1/1] step 2400/27037 | loss 1.1712 | lr 1.99e-05 | DriveLM 2/4
+  [10:23:54] [Epoch 1/1] step 2450/27037 | loss 1.1597 | lr 1.99e-05 | DriveLM 1/4
+  [10:27:15] [Epoch 1/1] step 2500/27037 | loss 1.1495 | lr 1.99e-05 | DriveLM 1/4
+  [10:30:36] [Epoch 1/1] step 2550/27037 | loss 1.1390 | lr 1.99e-05 | DriveLM 3/4
+  [10:33:57] [Epoch 1/1] step 2600/27037 | loss 1.1289 | lr 1.99e-05 | DriveLM 0/4
+  [10:37:18] [Epoch 1/1] step 2650/27037 | loss 1.1188 | lr 1.99e-05 | DriveLM 1/4
+  [10:40:39] [Epoch 1/1] step 2700/27037 | loss 1.1095 | lr 1.99e-05 | DriveLM 3/4
+  [10:43:59] [Epoch 1/1] step 2750/27037 | loss 1.1005 | lr 1.99e-05 | DriveLM 3/4
+  [10:47:20] [Epoch 1/1] step 2800/27037 | loss 1.0919 | lr 1.98e-05 | DriveLM 1/4
+  [10:50:41] [Epoch 1/1] step 2850/27037 | loss 1.0830 | lr 1.98e-05 | DriveLM 1/4
+  [10:54:01] [Epoch 1/1] step 2900/27037 | loss 1.0747 | lr 1.98e-05 | DriveLM 1/4
+  [10:57:22] [Epoch 1/1] step 2950/27037 | loss 1.0661 | lr 1.98e-05 | DriveLM 1/4
+  [11:00:43] [Epoch 1/1] step 3000/27037 | loss 1.0573 | lr 1.98e-05 | DriveLM 1/4
+  체크포인트 저장: checkpoints/student_baseline/step_3000
+  [11:04:05] [Epoch 1/1] step 3050/27037 | loss 1.0492 | lr 1.98e-05 | DriveLM 2/4
+  [11:07:25] [Epoch 1/1] step 3100/27037 | loss 1.0416 | lr 1.98e-05 | DriveLM 2/4
+  [11:10:46] [Epoch 1/1] step 3150/27037 | loss 1.0344 | lr 1.98e-05 | DriveLM 1/4
+  [11:14:07] [Epoch 1/1] step 3200/27037 | loss 1.0273 | lr 1.97e-05 | DriveLM 0/4
+  [11:17:27] [Epoch 1/1] step 3250/27037 | loss 1.0205 | lr 1.97e-05 | DriveLM 2/4
+  [11:20:48] [Epoch 1/1] step 3300/27037 | loss 1.0141 | lr 1.97e-05 | DriveLM 2/4
+  [11:24:09] [Epoch 1/1] step 3350/27037 | loss 1.0081 | lr 1.97e-05 | DriveLM 1/4
+  [11:27:30] [Epoch 1/1] step 3400/27037 | loss 1.0022 | lr 1.97e-05 | DriveLM 0/4
+  [11:30:50] [Epoch 1/1] step 3450/27037 | loss 0.9961 | lr 1.97e-05 | DriveLM 0/4
+  [11:34:11] [Epoch 1/1] step 3500/27037 | loss 0.9903 | lr 1.97e-05 | DriveLM 1/4
+  [11:37:32] [Epoch 1/1] step 3550/27037 | loss 0.9845 | lr 1.96e-05 | DriveLM 3/4
+  [11:40:53] [Epoch 1/1] step 3600/27037 | loss 0.9789 | lr 1.96e-05 | DriveLM 1/4
+  [11:44:14] [Epoch 1/1] step 3650/27037 | loss 0.9730 | lr 1.96e-05 | DriveLM 1/4
+  [11:47:34] [Epoch 1/1] step 3700/27037 | loss 0.9673 | lr 1.96e-05 | DriveLM 2/4
+  [11:50:55] [Epoch 1/1] step 3750/27037 | loss 0.9623 | lr 1.96e-05 | DriveLM 1/4
+  [11:54:16] [Epoch 1/1] step 3800/27037 | loss 0.9564 | lr 1.96e-05 | DriveLM 0/4
+  [11:57:37] [Epoch 1/1] step 3850/27037 | loss 0.9515 | lr 1.95e-05 | DriveLM 1/4
+  [12:00:58] [Epoch 1/1] step 3900/27037 | loss 0.9462 | lr 1.95e-05 | DriveLM 4/4
+  [12:04:19] [Epoch 1/1] step 3950/27037 | loss 0.9415 | lr 1.95e-05 | DriveLM 1/4
+  [12:07:40] [Epoch 1/1] step 4000/27037 | loss 0.9373 | lr 1.95e-05 | DriveLM 1/4
+  체크포인트 저장: checkpoints/student_baseline/step_4000
+  [12:11:02] [Epoch 1/1] step 4050/27037 | loss 0.9331 | lr 1.95e-05 | DriveLM 3/4
+  [12:14:22] [Epoch 1/1] step 4100/27037 | loss 0.9285 | lr 1.94e-05 | DriveLM 2/4
+  [12:17:44] [Epoch 1/1] step 4150/27037 | loss 0.9240 | lr 1.94e-05 | DriveLM 1/4
+  [12:21:04] [Epoch 1/1] step 4200/27037 | loss 0.9199 | lr 1.94e-05 | DriveLM 2/4
+  [12:24:25] [Epoch 1/1] step 4250/27037 | loss 0.9155 | lr 1.94e-05 | DriveLM 1/4
+  [12:27:47] [Epoch 1/1] step 4300/27037 | loss 0.9108 | lr 1.94e-05 | DriveLM 1/4
+  [12:31:08] [Epoch 1/1] step 4350/27037 | loss 0.9067 | lr 1.93e-05 | DriveLM 2/4
+  [12:34:29] [Epoch 1/1] step 4400/27037 | loss 0.9029 | lr 1.93e-05 | DriveLM 0/4
+  [12:37:50] [Epoch 1/1] step 4450/27037 | loss 0.8989 | lr 1.93e-05 | DriveLM 1/4
+  [12:41:11] [Epoch 1/1] step 4500/27037 | loss 0.8948 | lr 1.93e-05 | DriveLM 0/4
+  [12:44:33] [Epoch 1/1] step 4550/27037 | loss 0.8910 | lr 1.92e-05 | DriveLM 2/4
+  [12:47:54] [Epoch 1/1] step 4600/27037 | loss 0.8873 | lr 1.92e-05 | DriveLM 1/4
+  [12:51:15] [Epoch 1/1] step 4650/27037 | loss 0.8835 | lr 1.92e-05 | DriveLM 1/4
+  [12:54:36] [Epoch 1/1] step 4700/27037 | loss 0.8800 | lr 1.92e-05 | DriveLM 3/4
+  [12:57:57] [Epoch 1/1] step 4750/27037 | loss 0.8771 | lr 1.91e-05 | DriveLM 1/4
+  [13:01:18] [Epoch 1/1] step 4800/27037 | loss 0.8737 | lr 1.91e-05 | DriveLM 1/4
+  [13:04:39] [Epoch 1/1] step 4850/27037 | loss 0.8705 | lr 1.91e-05 | DriveLM 0/4
+  [13:08:01] [Epoch 1/1] step 4900/27037 | loss 0.8674 | lr 1.91e-05 | DriveLM 3/4
+  [13:11:22] [Epoch 1/1] step 4950/27037 | loss 0.8643 | lr 1.90e-05 | DriveLM 2/4
+  [13:14:43] [Epoch 1/1] step 5000/27037 | loss 0.8616 | lr 1.90e-05 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_5000
+  [13:18:05] [Epoch 1/1] step 5050/27037 | loss 0.8595 | lr 1.90e-05 | DriveLM 0/4
+  [13:21:26] [Epoch 1/1] step 5100/27037 | loss 0.8565 | lr 1.90e-05 | DriveLM 1/4
+  [13:24:46] [Epoch 1/1] step 5150/27037 | loss 0.8532 | lr 1.89e-05 | DriveLM 1/4
+  [13:28:07] [Epoch 1/1] step 5200/27037 | loss 0.8499 | lr 1.89e-05 | DriveLM 3/4
+  [13:31:28] [Epoch 1/1] step 5250/27037 | loss 0.8470 | lr 1.89e-05 | DriveLM 1/4
+  [13:34:49] [Epoch 1/1] step 5300/27037 | loss 0.8443 | lr 1.89e-05 | DriveLM 3/4
+  [13:38:10] [Epoch 1/1] step 5350/27037 | loss 0.8415 | lr 1.88e-05 | DriveLM 1/4
+  [13:41:30] [Epoch 1/1] step 5400/27037 | loss 0.8388 | lr 1.88e-05 | DriveLM 1/4
+  [13:44:51] [Epoch 1/1] step 5450/27037 | loss 0.8364 | lr 1.88e-05 | DriveLM 0/4
+  [13:48:12] [Epoch 1/1] step 5500/27037 | loss 0.8336 | lr 1.87e-05 | DriveLM 0/4
+  [13:51:33] [Epoch 1/1] step 5550/27037 | loss 0.8312 | lr 1.87e-05 | DriveLM 1/4
+  [13:54:54] [Epoch 1/1] step 5600/27037 | loss 0.8285 | lr 1.87e-05 | DriveLM 1/4
+  [13:58:15] [Epoch 1/1] step 5650/27037 | loss 0.8264 | lr 1.86e-05 | DriveLM 2/4
+  [14:01:35] [Epoch 1/1] step 5700/27037 | loss 0.8241 | lr 1.86e-05 | DriveLM 1/4
+  [14:04:56] [Epoch 1/1] step 5750/27037 | loss 0.8219 | lr 1.86e-05 | DriveLM 1/4
+  [14:08:17] [Epoch 1/1] step 5800/27037 | loss 0.8191 | lr 1.86e-05 | DriveLM 2/4
+  [14:11:38] [Epoch 1/1] step 5850/27037 | loss 0.8167 | lr 1.85e-05 | DriveLM 2/4
+  [14:14:59] [Epoch 1/1] step 5900/27037 | loss 0.8145 | lr 1.85e-05 | DriveLM 1/4
+  [14:18:20] [Epoch 1/1] step 5950/27037 | loss 0.8123 | lr 1.85e-05 | DriveLM 1/4
+  [14:21:41] [Epoch 1/1] step 6000/27037 | loss 0.8103 | lr 1.84e-05 | DriveLM 0/4
+  체크포인트 저장: checkpoints/student_baseline/step_6000
+  [14:25:03] [Epoch 1/1] step 6050/27037 | loss 0.8082 | lr 1.84e-05 | DriveLM 1/4
+  [14:28:24] [Epoch 1/1] step 6100/27037 | loss 0.8066 | lr 1.84e-05 | DriveLM 2/4
+  [14:31:45] [Epoch 1/1] step 6150/27037 | loss 0.8043 | lr 1.83e-05 | DriveLM 2/4
+  [14:35:06] [Epoch 1/1] step 6200/27037 | loss 0.8021 | lr 1.83e-05 | DriveLM 2/4
+  [14:38:27] [Epoch 1/1] step 6250/27037 | loss 0.8002 | lr 1.83e-05 | DriveLM 2/4
+  [14:41:48] [Epoch 1/1] step 6300/27037 | loss 0.7984 | lr 1.82e-05 | DriveLM 2/4
+  [14:45:09] [Epoch 1/1] step 6350/27037 | loss 0.7965 | lr 1.82e-05 | DriveLM 3/4
+  [14:48:31] [Epoch 1/1] step 6400/27037 | loss 0.7946 | lr 1.82e-05 | DriveLM 3/4
+  [14:51:52] [Epoch 1/1] step 6450/27037 | loss 0.7926 | lr 1.81e-05 | DriveLM 4/4
+  [14:55:13] [Epoch 1/1] step 6500/27037 | loss 0.7908 | lr 1.81e-05 | DriveLM 3/4
+  [14:58:34] [Epoch 1/1] step 6550/27037 | loss 0.7887 | lr 1.80e-05 | DriveLM 2/4
+  [15:01:55] [Epoch 1/1] step 6600/27037 | loss 0.7868 | lr 1.80e-05 | DriveLM 2/4
+  [15:05:16] [Epoch 1/1] step 6650/27037 | loss 0.7848 | lr 1.80e-05 | DriveLM 2/4
+  [15:08:37] [Epoch 1/1] step 6700/27037 | loss 0.7831 | lr 1.79e-05 | DriveLM 2/4
+  [15:11:59] [Epoch 1/1] step 6750/27037 | loss 0.7812 | lr 1.79e-05 | DriveLM 0/4
+  [15:15:20] [Epoch 1/1] step 6800/27037 | loss 0.7798 | lr 1.79e-05 | DriveLM 0/4
+  [15:18:41] [Epoch 1/1] step 6850/27037 | loss 0.7780 | lr 1.78e-05 | DriveLM 2/4
+  [15:22:01] [Epoch 1/1] step 6900/27037 | loss 0.7765 | lr 1.78e-05 | DriveLM 1/4
+  [15:25:22] [Epoch 1/1] step 6950/27037 | loss 0.7749 | lr 1.77e-05 | DriveLM 0/4
+  [15:28:43] [Epoch 1/1] step 7000/27037 | loss 0.7732 | lr 1.77e-05 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_7000
+  [15:32:05] [Epoch 1/1] step 7050/27037 | loss 0.7718 | lr 1.77e-05 | DriveLM 2/4
+  [15:35:26] [Epoch 1/1] step 7100/27037 | loss 0.7700 | lr 1.76e-05 | DriveLM 2/4
+  [15:38:47] [Epoch 1/1] step 7150/27037 | loss 0.7682 | lr 1.76e-05 | DriveLM 1/4
+  [15:42:08] [Epoch 1/1] step 7200/27037 | loss 0.7665 | lr 1.75e-05 | DriveLM 1/4
+  [15:45:29] [Epoch 1/1] step 7250/27037 | loss 0.7649 | lr 1.75e-05 | DriveLM 1/4
+  [15:48:50] [Epoch 1/1] step 7300/27037 | loss 0.7632 | lr 1.75e-05 | DriveLM 2/4
+  [15:52:11] [Epoch 1/1] step 7350/27037 | loss 0.7617 | lr 1.74e-05 | DriveLM 1/4
+  [15:55:32] [Epoch 1/1] step 7400/27037 | loss 0.7602 | lr 1.74e-05 | DriveLM 3/4
+  [15:58:53] [Epoch 1/1] step 7450/27037 | loss 0.7586 | lr 1.73e-05 | DriveLM 1/4
+  [16:02:14] [Epoch 1/1] step 7500/27037 | loss 0.7574 | lr 1.73e-05 | DriveLM 1/4
+  [16:05:35] [Epoch 1/1] step 7550/27037 | loss 0.7560 | lr 1.73e-05 | DriveLM 3/4
+  [16:08:56] [Epoch 1/1] step 7600/27037 | loss 0.7545 | lr 1.72e-05 | DriveLM 3/4
+  [16:12:18] [Epoch 1/1] step 7650/27037 | loss 0.7534 | lr 1.72e-05 | DriveLM 1/4
+  [16:15:39] [Epoch 1/1] step 7700/27037 | loss 0.7520 | lr 1.71e-05 | DriveLM 1/4
+  [16:19:00] [Epoch 1/1] step 7750/27037 | loss 0.7507 | lr 1.71e-05 | DriveLM 1/4
+  [16:22:21] [Epoch 1/1] step 7800/27037 | loss 0.7494 | lr 1.70e-05 | DriveLM 0/4
+  [16:25:42] [Epoch 1/1] step 7850/27037 | loss 0.7481 | lr 1.70e-05 | DriveLM 1/4
+  [16:29:03] [Epoch 1/1] step 7900/27037 | loss 0.7468 | lr 1.70e-05 | DriveLM 3/4
+  [16:32:25] [Epoch 1/1] step 7950/27037 | loss 0.7454 | lr 1.69e-05 | DriveLM 1/4
+  [16:35:46] [Epoch 1/1] step 8000/27037 | loss 0.7442 | lr 1.69e-05 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_8000
+  [16:39:08] [Epoch 1/1] step 8050/27037 | loss 0.7427 | lr 1.68e-05 | DriveLM 3/4
+  [16:42:29] [Epoch 1/1] step 8100/27037 | loss 0.7412 | lr 1.68e-05 | DriveLM 1/4
+  [16:45:50] [Epoch 1/1] step 8150/27037 | loss 0.7400 | lr 1.67e-05 | DriveLM 1/4
+  [16:49:11] [Epoch 1/1] step 8200/27037 | loss 0.7388 | lr 1.67e-05 | DriveLM 2/4
+  [16:52:32] [Epoch 1/1] step 8250/27037 | loss 0.7376 | lr 1.66e-05 | DriveLM 1/4
+  [16:55:54] [Epoch 1/1] step 8300/27037 | loss 0.7364 | lr 1.66e-05 | DriveLM 0/4
+  [16:59:15] [Epoch 1/1] step 8350/27037 | loss 0.7350 | lr 1.66e-05 | DriveLM 1/4
+  [17:02:36] [Epoch 1/1] step 8400/27037 | loss 0.7337 | lr 1.65e-05 | DriveLM 0/4
+  [17:05:57] [Epoch 1/1] step 8450/27037 | loss 0.7324 | lr 1.65e-05 | DriveLM 0/4
+  [17:09:18] [Epoch 1/1] step 8500/27037 | loss 0.7313 | lr 1.64e-05 | DriveLM 2/4
+  [17:12:38] [Epoch 1/1] step 8550/27037 | loss 0.7300 | lr 1.64e-05 | DriveLM 1/4
+  [17:15:59] [Epoch 1/1] step 8600/27037 | loss 0.7289 | lr 1.63e-05 | DriveLM 1/4
+  [17:19:20] [Epoch 1/1] step 8650/27037 | loss 0.7279 | lr 1.63e-05 | DriveLM 0/4
+  [17:22:41] [Epoch 1/1] step 8700/27037 | loss 0.7269 | lr 1.62e-05 | DriveLM 1/4
+  [17:26:01] [Epoch 1/1] step 8750/27037 | loss 0.7258 | lr 1.62e-05 | DriveLM 0/4
+  [17:29:22] [Epoch 1/1] step 8800/27037 | loss 0.7249 | lr 1.61e-05 | DriveLM 1/4
+  [17:32:43] [Epoch 1/1] step 8850/27037 | loss 0.7238 | lr 1.61e-05 | DriveLM 3/4
+  [17:36:04] [Epoch 1/1] step 8900/27037 | loss 0.7228 | lr 1.60e-05 | DriveLM 1/4
+  [17:39:25] [Epoch 1/1] step 8950/27037 | loss 0.7216 | lr 1.60e-05 | DriveLM 2/4
+  [17:42:46] [Epoch 1/1] step 9000/27037 | loss 0.7205 | lr 1.59e-05 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_9000
+  [17:46:08] [Epoch 1/1] step 9050/27037 | loss 0.7195 | lr 1.59e-05 | DriveLM 2/4
+  [17:49:29] [Epoch 1/1] step 9100/27037 | loss 0.7182 | lr 1.58e-05 | DriveLM 1/4
+  [17:52:50] [Epoch 1/1] step 9150/27037 | loss 0.7173 | lr 1.58e-05 | DriveLM 0/4
+  [17:56:11] [Epoch 1/1] step 9200/27037 | loss 0.7162 | lr 1.57e-05 | DriveLM 1/4
+  [17:59:32] [Epoch 1/1] step 9250/27037 | loss 0.7153 | lr 1.57e-05 | DriveLM 1/4
+  [18:02:53] [Epoch 1/1] step 9300/27037 | loss 0.7142 | lr 1.56e-05 | DriveLM 3/4
+  [18:06:14] [Epoch 1/1] step 9350/27037 | loss 0.7133 | lr 1.56e-05 | DriveLM 2/4
+  [18:09:35] [Epoch 1/1] step 9400/27037 | loss 0.7125 | lr 1.55e-05 | DriveLM 3/4
+  [18:12:56] [Epoch 1/1] step 9450/27037 | loss 0.7116 | lr 1.55e-05 | DriveLM 3/4
+  [18:16:17] [Epoch 1/1] step 9500/27037 | loss 0.7107 | lr 1.54e-05 | DriveLM 1/4
+  [18:19:39] [Epoch 1/1] step 9550/27037 | loss 0.7096 | lr 1.54e-05 | DriveLM 1/4
+  [18:23:00] [Epoch 1/1] step 9600/27037 | loss 0.7088 | lr 1.53e-05 | DriveLM 3/4
+  [18:26:21] [Epoch 1/1] step 9650/27037 | loss 0.7078 | lr 1.53e-05 | DriveLM 0/4
+  [18:29:42] [Epoch 1/1] step 9700/27037 | loss 0.7069 | lr 1.52e-05 | DriveLM 0/4
+  [18:33:04] [Epoch 1/1] step 9750/27037 | loss 0.7061 | lr 1.52e-05 | DriveLM 1/4
+  [18:36:25] [Epoch 1/1] step 9800/27037 | loss 0.7051 | lr 1.51e-05 | DriveLM 1/4
+  [18:39:46] [Epoch 1/1] step 9850/27037 | loss 0.7042 | lr 1.51e-05 | DriveLM 2/4
+  [18:43:07] [Epoch 1/1] step 9900/27037 | loss 0.7031 | lr 1.50e-05 | DriveLM 0/4
+  [18:46:28] [Epoch 1/1] step 9950/27037 | loss 0.7023 | lr 1.50e-05 | DriveLM 1/4
+  [18:49:49] [Epoch 1/1] step 10000/27037 | loss 0.7014 | lr 1.49e-05 | DriveLM 1/4
+  체크포인트 저장: checkpoints/student_baseline/step_10000
+  [18:53:11] [Epoch 1/1] step 10050/27037 | loss 0.7004 | lr 1.49e-05 | DriveLM 3/4
+  [18:56:33] [Epoch 1/1] step 10100/27037 | loss 0.6994 | lr 1.48e-05 | DriveLM 2/4
+  [18:59:54] [Epoch 1/1] step 10150/27037 | loss 0.6984 | lr 1.47e-05 | DriveLM 1/4
+  [19:03:15] [Epoch 1/1] step 10200/27037 | loss 0.6973 | lr 1.47e-05 | DriveLM 1/4
+  [19:06:36] [Epoch 1/1] step 10250/27037 | loss 0.6965 | lr 1.46e-05 | DriveLM 1/4
+  [19:09:57] [Epoch 1/1] step 10300/27037 | loss 0.6955 | lr 1.46e-05 | DriveLM 3/4
+  [19:13:18] [Epoch 1/1] step 10350/27037 | loss 0.6945 | lr 1.45e-05 | DriveLM 2/4
+  [19:16:39] [Epoch 1/1] step 10400/27037 | loss 0.6936 | lr 1.45e-05 | DriveLM 1/4
+  [19:20:00] [Epoch 1/1] step 10450/27037 | loss 0.6927 | lr 1.44e-05 | DriveLM 2/4
+  [19:23:22] [Epoch 1/1] step 10500/27037 | loss 0.6917 | lr 1.44e-05 | DriveLM 1/4
+  [19:26:43] [Epoch 1/1] step 10550/27037 | loss 0.6908 | lr 1.43e-05 | DriveLM 1/4
+  [19:30:04] [Epoch 1/1] step 10600/27037 | loss 0.6900 | lr 1.43e-05 | DriveLM 0/4
+  [19:33:25] [Epoch 1/1] step 10650/27037 | loss 0.6892 | lr 1.42e-05 | DriveLM 0/4
+  [19:36:47] [Epoch 1/1] step 10700/27037 | loss 0.6884 | lr 1.41e-05 | DriveLM 1/4
+  [19:40:08] [Epoch 1/1] step 10750/27037 | loss 0.6876 | lr 1.41e-05 | DriveLM 1/4
+  [19:43:29] [Epoch 1/1] step 10800/27037 | loss 0.6865 | lr 1.40e-05 | DriveLM 2/4
+  [19:46:50] [Epoch 1/1] step 10850/27037 | loss 0.6857 | lr 1.40e-05 | DriveLM 3/4
+  [19:50:12] [Epoch 1/1] step 10900/27037 | loss 0.6850 | lr 1.39e-05 | DriveLM 0/4
+  [19:53:33] [Epoch 1/1] step 10950/27037 | loss 0.6842 | lr 1.39e-05 | DriveLM 2/4
+  [19:56:54] [Epoch 1/1] step 11000/27037 | loss 0.6834 | lr 1.38e-05 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_11000
+  [20:00:17] [Epoch 1/1] step 11050/27037 | loss 0.6827 | lr 1.38e-05 | DriveLM 1/4
+  [20:03:38] [Epoch 1/1] step 11100/27037 | loss 0.6819 | lr 1.37e-05 | DriveLM 1/4
+  [20:06:59] [Epoch 1/1] step 11150/27037 | loss 0.6812 | lr 1.36e-05 | DriveLM 1/4
+  [20:10:21] [Epoch 1/1] step 11200/27037 | loss 0.6806 | lr 1.36e-05 | DriveLM 1/4
+  [20:13:42] [Epoch 1/1] step 11250/27037 | loss 0.6799 | lr 1.35e-05 | DriveLM 2/4
+  [20:17:04] [Epoch 1/1] step 11300/27037 | loss 0.6791 | lr 1.35e-05 | DriveLM 1/4
+  [20:20:25] [Epoch 1/1] step 11350/27037 | loss 0.6782 | lr 1.34e-05 | DriveLM 1/4
+  [20:23:46] [Epoch 1/1] step 11400/27037 | loss 0.6774 | lr 1.34e-05 | DriveLM 3/4
+  [20:27:07] [Epoch 1/1] step 11450/27037 | loss 0.6765 | lr 1.33e-05 | DriveLM 1/4
+  [20:30:29] [Epoch 1/1] step 11500/27037 | loss 0.6758 | lr 1.32e-05 | DriveLM 3/4
+  [20:33:50] [Epoch 1/1] step 11550/27037 | loss 0.6749 | lr 1.32e-05 | DriveLM 4/4
+  [20:37:11] [Epoch 1/1] step 11600/27037 | loss 0.6742 | lr 1.31e-05 | DriveLM 1/4
+  [20:40:32] [Epoch 1/1] step 11650/27037 | loss 0.6736 | lr 1.31e-05 | DriveLM 1/4
+  [20:43:53] [Epoch 1/1] step 11700/27037 | loss 0.6729 | lr 1.30e-05 | DriveLM 1/4
+  [20:47:14] [Epoch 1/1] step 11750/27037 | loss 0.6721 | lr 1.29e-05 | DriveLM 3/4
+  [20:50:36] [Epoch 1/1] step 11800/27037 | loss 0.6714 | lr 1.29e-05 | DriveLM 4/4
+  [20:53:57] [Epoch 1/1] step 11850/27037 | loss 0.6708 | lr 1.28e-05 | DriveLM 2/4
+  [20:57:18] [Epoch 1/1] step 11900/27037 | loss 0.6702 | lr 1.28e-05 | DriveLM 1/4
+  [21:00:40] [Epoch 1/1] step 11950/27037 | loss 0.6696 | lr 1.27e-05 | DriveLM 2/4
+  [21:04:01] [Epoch 1/1] step 12000/27037 | loss 0.6690 | lr 1.27e-05 | DriveLM 3/4
+  체크포인트 저장: checkpoints/student_baseline/step_12000
+  [21:07:23] [Epoch 1/1] step 12050/27037 | loss 0.6682 | lr 1.26e-05 | DriveLM 2/4
+  [21:10:45] [Epoch 1/1] step 12100/27037 | loss 0.6675 | lr 1.25e-05 | DriveLM 3/4
+  [21:14:06] [Epoch 1/1] step 12150/27037 | loss 0.6668 | lr 1.25e-05 | DriveLM 2/4
+  [21:17:27] [Epoch 1/1] step 12200/27037 | loss 0.6662 | lr 1.24e-05 | DriveLM 2/4
+  [21:20:48] [Epoch 1/1] step 12250/27037 | loss 0.6657 | lr 1.24e-05 | DriveLM 2/4
+  [21:24:10] [Epoch 1/1] step 12300/27037 | loss 0.6654 | lr 1.23e-05 | DriveLM 3/4
+  [21:27:31] [Epoch 1/1] step 12350/27037 | loss 0.6648 | lr 1.22e-05 | DriveLM 1/4
+  [21:30:53] [Epoch 1/1] step 12400/27037 | loss 0.6640 | lr 1.22e-05 | DriveLM 1/4
+  [21:34:14] [Epoch 1/1] step 12450/27037 | loss 0.6635 | lr 1.21e-05 | DriveLM 1/4
+  [21:37:35] [Epoch 1/1] step 12500/27037 | loss 0.6628 | lr 1.21e-05 | DriveLM 1/4
+  [21:40:56] [Epoch 1/1] step 12550/27037 | loss 0.6622 | lr 1.20e-05 | DriveLM 1/4
+  [21:44:18] [Epoch 1/1] step 12600/27037 | loss 0.6617 | lr 1.19e-05 | DriveLM 1/4
+  [21:47:39] [Epoch 1/1] step 12650/27037 | loss 0.6609 | lr 1.19e-05 | DriveLM 1/4
+  [21:51:00] [Epoch 1/1] step 12700/27037 | loss 0.6603 | lr 1.18e-05 | DriveLM 0/4
+  [21:54:21] [Epoch 1/1] step 12750/27037 | loss 0.6595 | lr 1.18e-05 | DriveLM 3/4
+  [21:57:43] [Epoch 1/1] step 12800/27037 | loss 0.6588 | lr 1.17e-05 | DriveLM 3/4
+  [22:01:04] [Epoch 1/1] step 12850/27037 | loss 0.6582 | lr 1.16e-05 | DriveLM 2/4
+  [22:04:25] [Epoch 1/1] step 12900/27037 | loss 0.6576 | lr 1.16e-05 | DriveLM 1/4
+  [22:07:46] [Epoch 1/1] step 12950/27037 | loss 0.6570 | lr 1.15e-05 | DriveLM 1/4
+  [22:11:07] [Epoch 1/1] step 13000/27037 | loss 0.6565 | lr 1.15e-05 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_13000
+  [22:14:29] [Epoch 1/1] step 13050/27037 | loss 0.6559 | lr 1.14e-05 | DriveLM 2/4
+  [22:17:51] [Epoch 1/1] step 13100/27037 | loss 0.6553 | lr 1.13e-05 | DriveLM 1/4
+  [22:21:12] [Epoch 1/1] step 13150/27037 | loss 0.6548 | lr 1.13e-05 | DriveLM 1/4
+  [22:24:34] [Epoch 1/1] step 13200/27037 | loss 0.6543 | lr 1.12e-05 | DriveLM 2/4
+  [22:27:55] [Epoch 1/1] step 13250/27037 | loss 0.6537 | lr 1.12e-05 | DriveLM 1/4
+  [22:31:16] [Epoch 1/1] step 13300/27037 | loss 0.6532 | lr 1.11e-05 | DriveLM 2/4
+  [22:34:37] [Epoch 1/1] step 13350/27037 | loss 0.6526 | lr 1.10e-05 | DriveLM 1/4
+  [22:37:58] [Epoch 1/1] step 13400/27037 | loss 0.6521 | lr 1.10e-05 | DriveLM 0/4
+  [22:41:20] [Epoch 1/1] step 13450/27037 | loss 0.6515 | lr 1.09e-05 | DriveLM 1/4
+  [22:44:41] [Epoch 1/1] step 13500/27037 | loss 0.6508 | lr 1.08e-05 | DriveLM 1/4
+  [22:48:02] [Epoch 1/1] step 13550/27037 | loss 0.6502 | lr 1.08e-05 | DriveLM 3/4
+  [22:51:24] [Epoch 1/1] step 13600/27037 | loss 0.6496 | lr 1.07e-05 | DriveLM 0/4
+  [22:54:45] [Epoch 1/1] step 13650/27037 | loss 0.6489 | lr 1.07e-05 | DriveLM 2/4
+  [22:58:06] [Epoch 1/1] step 13700/27037 | loss 0.6483 | lr 1.06e-05 | DriveLM 1/4
+  [23:01:27] [Epoch 1/1] step 13750/27037 | loss 0.6477 | lr 1.05e-05 | DriveLM 0/4
+  [23:04:48] [Epoch 1/1] step 13800/27037 | loss 0.6471 | lr 1.05e-05 | DriveLM 2/4
+  [23:08:09] [Epoch 1/1] step 13850/27037 | loss 0.6466 | lr 1.04e-05 | DriveLM 3/4
+  [23:11:30] [Epoch 1/1] step 13900/27037 | loss 0.6462 | lr 1.04e-05 | DriveLM 0/4
+  [23:14:52] [Epoch 1/1] step 13950/27037 | loss 0.6457 | lr 1.03e-05 | DriveLM 3/4
+  [23:18:13] [Epoch 1/1] step 14000/27037 | loss 0.6452 | lr 1.02e-05 | DriveLM 1/4
+  체크포인트 저장: checkpoints/student_baseline/step_14000
+  [23:21:35] [Epoch 1/1] step 14050/27037 | loss 0.6445 | lr 1.02e-05 | DriveLM 1/4
+  [23:24:56] [Epoch 1/1] step 14100/27037 | loss 0.6440 | lr 1.01e-05 | DriveLM 2/4
+  [23:28:17] [Epoch 1/1] step 14150/27037 | loss 0.6435 | lr 1.01e-05 | DriveLM 1/4
+  [23:31:38] [Epoch 1/1] step 14200/27037 | loss 0.6429 | lr 9.99e-06 | DriveLM 3/4
+  [23:34:59] [Epoch 1/1] step 14250/27037 | loss 0.6423 | lr 9.93e-06 | DriveLM 3/4
+  [23:38:21] [Epoch 1/1] step 14300/27037 | loss 0.6419 | lr 9.87e-06 | DriveLM 1/4
+  [23:41:42] [Epoch 1/1] step 14350/27037 | loss 0.6414 | lr 9.81e-06 | DriveLM 4/4
+  [23:45:04] [Epoch 1/1] step 14400/27037 | loss 0.6408 | lr 9.75e-06 | DriveLM 2/4
+  [23:48:26] [Epoch 1/1] step 14450/27037 | loss 0.6404 | lr 9.69e-06 | DriveLM 1/4
+  [23:51:47] [Epoch 1/1] step 14500/27037 | loss 0.6400 | lr 9.63e-06 | DriveLM 2/4
+  [23:55:09] [Epoch 1/1] step 14550/27037 | loss 0.6396 | lr 9.56e-06 | DriveLM 3/4
+  [23:58:31] [Epoch 1/1] step 14600/27037 | loss 0.6390 | lr 9.50e-06 | DriveLM 1/4
+  [00:01:53] [Epoch 1/1] step 14650/27037 | loss 0.6386 | lr 9.44e-06 | DriveLM 2/4
+  [00:05:15] [Epoch 1/1] step 14700/27037 | loss 0.6381 | lr 9.38e-06 | DriveLM 2/4
+  [00:08:37] [Epoch 1/1] step 14750/27037 | loss 0.6377 | lr 9.32e-06 | DriveLM 2/4
+  [00:11:59] [Epoch 1/1] step 14800/27037 | loss 0.6371 | lr 9.26e-06 | DriveLM 0/4
+  [00:15:21] [Epoch 1/1] step 14850/27037 | loss 0.6367 | lr 9.20e-06 | DriveLM 0/4
+  [00:18:43] [Epoch 1/1] step 14900/27037 | loss 0.6363 | lr 9.14e-06 | DriveLM 2/4
+  [00:22:05] [Epoch 1/1] step 14950/27037 | loss 0.6358 | lr 9.08e-06 | DriveLM 1/4
+  [00:25:27] [Epoch 1/1] step 15000/27037 | loss 0.6353 | lr 9.02e-06 | DriveLM 1/4
+  체크포인트 저장: checkpoints/student_baseline/step_15000
+  [00:28:50] [Epoch 1/1] step 15050/27037 | loss 0.6347 | lr 8.95e-06 | DriveLM 2/4
+  [00:32:12] [Epoch 1/1] step 15100/27037 | loss 0.6342 | lr 8.89e-06 | DriveLM 1/4
+  [00:35:34] [Epoch 1/1] step 15150/27037 | loss 0.6337 | lr 8.83e-06 | DriveLM 0/4
+  [00:38:56] [Epoch 1/1] step 15200/27037 | loss 0.6331 | lr 8.77e-06 | DriveLM 1/4
+  [00:42:18] [Epoch 1/1] step 15250/27037 | loss 0.6325 | lr 8.71e-06 | DriveLM 2/4
+  [00:45:40] [Epoch 1/1] step 15300/27037 | loss 0.6321 | lr 8.65e-06 | DriveLM 3/4
+  [00:49:02] [Epoch 1/1] step 15350/27037 | loss 0.6317 | lr 8.59e-06 | DriveLM 1/4
+  [00:52:24] [Epoch 1/1] step 15400/27037 | loss 0.6314 | lr 8.53e-06 | DriveLM 0/4
+  [00:55:47] [Epoch 1/1] step 15450/27037 | loss 0.6308 | lr 8.47e-06 | DriveLM 2/4
+  [00:59:09] [Epoch 1/1] step 15500/27037 | loss 0.6302 | lr 8.41e-06 | DriveLM 1/4
+  [01:02:32] [Epoch 1/1] step 15550/27037 | loss 0.6297 | lr 8.35e-06 | DriveLM 2/4
+  [01:05:54] [Epoch 1/1] step 15600/27037 | loss 0.6293 | lr 8.29e-06 | DriveLM 2/4
+  [01:09:16] [Epoch 1/1] step 15650/27037 | loss 0.6289 | lr 8.23e-06 | DriveLM 2/4
+  [01:12:38] [Epoch 1/1] step 15700/27037 | loss 0.6285 | lr 8.17e-06 | DriveLM 1/4
+  [01:16:01] [Epoch 1/1] step 15750/27037 | loss 0.6280 | lr 8.11e-06 | DriveLM 1/4
+  [01:19:23] [Epoch 1/1] step 15800/27037 | loss 0.6274 | lr 8.05e-06 | DriveLM 1/4
+  [01:22:45] [Epoch 1/1] step 15850/27037 | loss 0.6271 | lr 7.99e-06 | DriveLM 1/4
+  [01:26:08] [Epoch 1/1] step 15900/27037 | loss 0.6266 | lr 7.93e-06 | DriveLM 1/4
+  [01:29:30] [Epoch 1/1] step 15950/27037 | loss 0.6260 | lr 7.87e-06 | DriveLM 1/4
+  [01:32:52] [Epoch 1/1] step 16000/27037 | loss 0.6255 | lr 7.81e-06 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_16000
+  [01:36:16] [Epoch 1/1] step 16050/27037 | loss 0.6250 | lr 7.75e-06 | DriveLM 2/4
+  [01:39:38] [Epoch 1/1] step 16100/27037 | loss 0.6245 | lr 7.69e-06 | DriveLM 2/4
+  [01:43:00] [Epoch 1/1] step 16150/27037 | loss 0.6240 | lr 7.63e-06 | DriveLM 1/4
+  [01:46:22] [Epoch 1/1] step 16200/27037 | loss 0.6235 | lr 7.57e-06 | DriveLM 1/4
+  [01:49:45] [Epoch 1/1] step 16250/27037 | loss 0.6230 | lr 7.51e-06 | DriveLM 1/4
+  [01:53:07] [Epoch 1/1] step 16300/27037 | loss 0.6226 | lr 7.45e-06 | DriveLM 2/4
+  [01:56:30] [Epoch 1/1] step 16350/27037 | loss 0.6221 | lr 7.39e-06 | DriveLM 2/4
+  [01:59:52] [Epoch 1/1] step 16400/27037 | loss 0.6216 | lr 7.33e-06 | DriveLM 3/4
+  [02:03:14] [Epoch 1/1] step 16450/27037 | loss 0.6210 | lr 7.28e-06 | DriveLM 0/4
+  [02:06:37] [Epoch 1/1] step 16500/27037 | loss 0.6206 | lr 7.22e-06 | DriveLM 3/4
+  [02:09:59] [Epoch 1/1] step 16550/27037 | loss 0.6200 | lr 7.16e-06 | DriveLM 3/4
+  [02:13:22] [Epoch 1/1] step 16600/27037 | loss 0.6195 | lr 7.10e-06 | DriveLM 1/4
+  [02:16:45] [Epoch 1/1] step 16650/27037 | loss 0.6191 | lr 7.04e-06 | DriveLM 3/4
+  [02:20:07] [Epoch 1/1] step 16700/27037 | loss 0.6187 | lr 6.98e-06 | DriveLM 0/4
+  [02:23:31] [Epoch 1/1] step 16750/27037 | loss 0.6181 | lr 6.92e-06 | DriveLM 1/4
+  [02:26:54] [Epoch 1/1] step 16800/27037 | loss 0.6176 | lr 6.87e-06 | DriveLM 2/4
+  [02:30:16] [Epoch 1/1] step 16850/27037 | loss 0.6170 | lr 6.81e-06 | DriveLM 2/4
+  [02:33:39] [Epoch 1/1] step 16900/27037 | loss 0.6165 | lr 6.75e-06 | DriveLM 2/4
+  [02:37:01] [Epoch 1/1] step 16950/27037 | loss 0.6161 | lr 6.69e-06 | DriveLM 1/4
+  [02:40:24] [Epoch 1/1] step 17000/27037 | loss 0.6157 | lr 6.64e-06 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_17000
+  [02:43:48] [Epoch 1/1] step 17050/27037 | loss 0.6153 | lr 6.58e-06 | DriveLM 3/4
+  [02:47:11] [Epoch 1/1] step 17100/27037 | loss 0.6149 | lr 6.52e-06 | DriveLM 2/4
+  [02:50:34] [Epoch 1/1] step 17150/27037 | loss 0.6145 | lr 6.46e-06 | DriveLM 0/4
+  [02:53:57] [Epoch 1/1] step 17200/27037 | loss 0.6142 | lr 6.41e-06 | DriveLM 2/4
+  [02:57:20] [Epoch 1/1] step 17250/27037 | loss 0.6138 | lr 6.35e-06 | DriveLM 2/4
+  [03:00:43] [Epoch 1/1] step 17300/27037 | loss 0.6134 | lr 6.29e-06 | DriveLM 2/4
+  [03:04:06] [Epoch 1/1] step 17350/27037 | loss 0.6130 | lr 6.24e-06 | DriveLM 2/4
+  [03:07:29] [Epoch 1/1] step 17400/27037 | loss 0.6126 | lr 6.18e-06 | DriveLM 3/4
+  [03:10:52] [Epoch 1/1] step 17450/27037 | loss 0.6121 | lr 6.12e-06 | DriveLM 2/4
+  [03:14:15] [Epoch 1/1] step 17500/27037 | loss 0.6117 | lr 6.07e-06 | DriveLM 1/4
+  [03:17:38] [Epoch 1/1] step 17550/27037 | loss 0.6113 | lr 6.01e-06 | DriveLM 1/4
+  [03:21:00] [Epoch 1/1] step 17600/27037 | loss 0.6108 | lr 5.95e-06 | DriveLM 0/4
+  [03:24:23] [Epoch 1/1] step 17650/27037 | loss 0.6104 | lr 5.90e-06 | DriveLM 1/4
+  [03:27:46] [Epoch 1/1] step 17700/27037 | loss 0.6099 | lr 5.84e-06 | DriveLM 2/4
+  [03:31:09] [Epoch 1/1] step 17750/27037 | loss 0.6095 | lr 5.79e-06 | DriveLM 2/4
+  [03:34:32] [Epoch 1/1] step 17800/27037 | loss 0.6091 | lr 5.73e-06 | DriveLM 1/4
+  [03:37:55] [Epoch 1/1] step 17850/27037 | loss 0.6087 | lr 5.68e-06 | DriveLM 1/4
+  [03:41:18] [Epoch 1/1] step 17900/27037 | loss 0.6083 | lr 5.62e-06 | DriveLM 0/4
+  [03:44:41] [Epoch 1/1] step 17950/27037 | loss 0.6080 | lr 5.57e-06 | DriveLM 0/4
+  [03:48:04] [Epoch 1/1] step 18000/27037 | loss 0.6076 | lr 5.51e-06 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_18000
+  [03:51:31] [Epoch 1/1] step 18050/27037 | loss 0.6072 | lr 5.46e-06 | DriveLM 0/4
+  [03:54:54] [Epoch 1/1] step 18100/27037 | loss 0.6068 | lr 5.40e-06 | DriveLM 3/4
+  [03:58:17] [Epoch 1/1] step 18150/27037 | loss 0.6063 | lr 5.35e-06 | DriveLM 3/4
+  [04:01:40] [Epoch 1/1] step 18200/27037 | loss 0.6059 | lr 5.29e-06 | DriveLM 4/4
+  [04:05:02] [Epoch 1/1] step 18250/27037 | loss 0.6055 | lr 5.24e-06 | DriveLM 1/4
+  [04:08:25] [Epoch 1/1] step 18300/27037 | loss 0.6052 | lr 5.19e-06 | DriveLM 2/4
+  [04:11:48] [Epoch 1/1] step 18350/27037 | loss 0.6047 | lr 5.13e-06 | DriveLM 3/4
+  [04:15:11] [Epoch 1/1] step 18400/27037 | loss 0.6043 | lr 5.08e-06 | DriveLM 2/4
+  [04:18:34] [Epoch 1/1] step 18450/27037 | loss 0.6037 | lr 5.03e-06 | DriveLM 3/4
+  [04:21:57] [Epoch 1/1] step 18500/27037 | loss 0.6034 | lr 4.97e-06 | DriveLM 2/4
+  [04:25:20] [Epoch 1/1] step 18550/27037 | loss 0.6030 | lr 4.92e-06 | DriveLM 2/4
+  [04:28:43] [Epoch 1/1] step 18600/27037 | loss 0.6025 | lr 4.87e-06 | DriveLM 1/4
+  [04:32:06] [Epoch 1/1] step 18650/27037 | loss 0.6022 | lr 4.82e-06 | DriveLM 3/4
+  [04:35:29] [Epoch 1/1] step 18700/27037 | loss 0.6018 | lr 4.76e-06 | DriveLM 2/4
+  [04:38:53] [Epoch 1/1] step 18750/27037 | loss 0.6015 | lr 4.71e-06 | DriveLM 1/4
+  [04:42:16] [Epoch 1/1] step 18800/27037 | loss 0.6010 | lr 4.66e-06 | DriveLM 1/4
+  [04:45:39] [Epoch 1/1] step 18850/27037 | loss 0.6007 | lr 4.61e-06 | DriveLM 2/4
+  [04:49:02] [Epoch 1/1] step 18900/27037 | loss 0.6003 | lr 4.56e-06 | DriveLM 1/4
+  [04:52:24] [Epoch 1/1] step 18950/27037 | loss 0.6000 | lr 4.51e-06 | DriveLM 3/4
+  [04:55:47] [Epoch 1/1] step 19000/27037 | loss 0.5997 | lr 4.45e-06 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_19000
+  [04:59:11] [Epoch 1/1] step 19050/27037 | loss 0.5993 | lr 4.40e-06 | DriveLM 3/4
+  [05:02:34] [Epoch 1/1] step 19100/27037 | loss 0.5989 | lr 4.35e-06 | DriveLM 4/4
+  [05:05:58] [Epoch 1/1] step 19150/27037 | loss 0.5984 | lr 4.30e-06 | DriveLM 1/4
+  [05:09:21] [Epoch 1/1] step 19200/27037 | loss 0.5980 | lr 4.25e-06 | DriveLM 1/4
+  [05:12:44] [Epoch 1/1] step 19250/27037 | loss 0.5978 | lr 4.20e-06 | DriveLM 2/4
+  [05:16:07] [Epoch 1/1] step 19300/27037 | loss 0.5975 | lr 4.15e-06 | DriveLM 0/4
+  [05:19:30] [Epoch 1/1] step 19350/27037 | loss 0.5971 | lr 4.10e-06 | DriveLM 2/4
+  [05:22:52] [Epoch 1/1] step 19400/27037 | loss 0.5967 | lr 4.05e-06 | DriveLM 1/4
+  [05:26:15] [Epoch 1/1] step 19450/27037 | loss 0.5963 | lr 4.01e-06 | DriveLM 0/4
+  [05:29:38] [Epoch 1/1] step 19500/27037 | loss 0.5960 | lr 3.96e-06 | DriveLM 3/4
+  [05:33:00] [Epoch 1/1] step 19550/27037 | loss 0.5956 | lr 3.91e-06 | DriveLM 2/4
+  [05:36:23] [Epoch 1/1] step 19600/27037 | loss 0.5953 | lr 3.86e-06 | DriveLM 2/4
+  [05:39:46] [Epoch 1/1] step 19650/27037 | loss 0.5949 | lr 3.81e-06 | DriveLM 3/4
+  [05:43:09] [Epoch 1/1] step 19700/27037 | loss 0.5947 | lr 3.76e-06 | DriveLM 0/4
+  [05:46:32] [Epoch 1/1] step 19750/27037 | loss 0.5943 | lr 3.72e-06 | DriveLM 1/4
+  [05:49:55] [Epoch 1/1] step 19800/27037 | loss 0.5938 | lr 3.67e-06 | DriveLM 2/4
+  [05:53:18] [Epoch 1/1] step 19850/27037 | loss 0.5934 | lr 3.62e-06 | DriveLM 1/4
+  [05:56:40] [Epoch 1/1] step 19900/27037 | loss 0.5930 | lr 3.57e-06 | DriveLM 1/4
+  [06:00:03] [Epoch 1/1] step 19950/27037 | loss 0.5927 | lr 3.53e-06 | DriveLM 2/4
+  [06:03:26] [Epoch 1/1] step 20000/27037 | loss 0.5923 | lr 3.48e-06 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_20000
+  [06:06:50] [Epoch 1/1] step 20050/27037 | loss 0.5920 | lr 3.43e-06 | DriveLM 0/4
+  [06:10:13] [Epoch 1/1] step 20100/27037 | loss 0.5916 | lr 3.39e-06 | DriveLM 2/4
+  [06:13:36] [Epoch 1/1] step 20150/27037 | loss 0.5914 | lr 3.34e-06 | DriveLM 3/4
+  [06:16:59] [Epoch 1/1] step 20200/27037 | loss 0.5910 | lr 3.30e-06 | DriveLM 3/4
+  [06:20:22] [Epoch 1/1] step 20250/27037 | loss 0.5907 | lr 3.25e-06 | DriveLM 1/4
+  [06:23:45] [Epoch 1/1] step 20300/27037 | loss 0.5904 | lr 3.21e-06 | DriveLM 2/4
+  [06:27:08] [Epoch 1/1] step 20350/27037 | loss 0.5902 | lr 3.16e-06 | DriveLM 1/4
+  [06:30:31] [Epoch 1/1] step 20400/27037 | loss 0.5900 | lr 3.12e-06 | DriveLM 1/4
+  [06:33:54] [Epoch 1/1] step 20450/27037 | loss 0.5896 | lr 3.07e-06 | DriveLM 0/4
+  [06:37:17] [Epoch 1/1] step 20500/27037 | loss 0.5892 | lr 3.03e-06 | DriveLM 3/4
+  [06:40:40] [Epoch 1/1] step 20550/27037 | loss 0.5890 | lr 2.99e-06 | DriveLM 1/4
+  [06:44:03] [Epoch 1/1] step 20600/27037 | loss 0.5886 | lr 2.94e-06 | DriveLM 1/4
+  [06:47:26] [Epoch 1/1] step 20650/27037 | loss 0.5883 | lr 2.90e-06 | DriveLM 2/4
+  [06:50:49] [Epoch 1/1] step 20700/27037 | loss 0.5881 | lr 2.86e-06 | DriveLM 1/4
+  [06:54:11] [Epoch 1/1] step 20750/27037 | loss 0.5876 | lr 2.81e-06 | DriveLM 0/4
+  [06:57:34] [Epoch 1/1] step 20800/27037 | loss 0.5873 | lr 2.77e-06 | DriveLM 0/4
+  [07:00:57] [Epoch 1/1] step 20850/27037 | loss 0.5870 | lr 2.73e-06 | DriveLM 1/4
+  [07:04:20] [Epoch 1/1] step 20900/27037 | loss 0.5866 | lr 2.69e-06 | DriveLM 0/4
+  [07:07:42] [Epoch 1/1] step 20950/27037 | loss 0.5863 | lr 2.65e-06 | DriveLM 3/4
+  [07:11:05] [Epoch 1/1] step 21000/27037 | loss 0.5860 | lr 2.60e-06 | DriveLM 1/4
+  체크포인트 저장: checkpoints/student_baseline/step_21000
+  [07:14:29] [Epoch 1/1] step 21050/27037 | loss 0.5857 | lr 2.56e-06 | DriveLM 1/4
+  [07:17:52] [Epoch 1/1] step 21100/27037 | loss 0.5854 | lr 2.52e-06 | DriveLM 0/4
+  [07:21:14] [Epoch 1/1] step 21150/27037 | loss 0.5850 | lr 2.48e-06 | DriveLM 2/4
+  [07:24:37] [Epoch 1/1] step 21200/27037 | loss 0.5848 | lr 2.44e-06 | DriveLM 2/4
+  [07:27:59] [Epoch 1/1] step 21250/27037 | loss 0.5844 | lr 2.40e-06 | DriveLM 2/4
+  [07:31:22] [Epoch 1/1] step 21300/27037 | loss 0.5841 | lr 2.36e-06 | DriveLM 3/4
+  [07:34:44] [Epoch 1/1] step 21350/27037 | loss 0.5837 | lr 2.32e-06 | DriveLM 1/4
+  [07:38:07] [Epoch 1/1] step 21400/27037 | loss 0.5833 | lr 2.28e-06 | DriveLM 0/4
+  [07:41:29] [Epoch 1/1] step 21450/27037 | loss 0.5830 | lr 2.25e-06 | DriveLM 0/4
+  [07:44:52] [Epoch 1/1] step 21500/27037 | loss 0.5827 | lr 2.21e-06 | DriveLM 1/4
+  [07:48:15] [Epoch 1/1] step 21550/27037 | loss 0.5823 | lr 2.17e-06 | DriveLM 2/4
+  [07:51:38] [Epoch 1/1] step 21600/27037 | loss 0.5820 | lr 2.13e-06 | DriveLM 2/4
+  [07:55:00] [Epoch 1/1] step 21650/27037 | loss 0.5815 | lr 2.09e-06 | DriveLM 1/4
+  [07:58:23] [Epoch 1/1] step 21700/27037 | loss 0.5812 | lr 2.06e-06 | DriveLM 1/4
+  [08:01:46] [Epoch 1/1] step 21750/27037 | loss 0.5808 | lr 2.02e-06 | DriveLM 2/4
+  [08:05:09] [Epoch 1/1] step 21800/27037 | loss 0.5804 | lr 1.98e-06 | DriveLM 2/4
+  [08:08:31] [Epoch 1/1] step 21850/27037 | loss 0.5800 | lr 1.95e-06 | DriveLM 1/4
+  [08:11:54] [Epoch 1/1] step 21900/27037 | loss 0.5796 | lr 1.91e-06 | DriveLM 1/4
+  [08:15:16] [Epoch 1/1] step 21950/27037 | loss 0.5792 | lr 1.87e-06 | DriveLM 3/4
+  [08:18:39] [Epoch 1/1] step 22000/27037 | loss 0.5789 | lr 1.84e-06 | DriveLM 3/4
+  체크포인트 저장: checkpoints/student_baseline/step_22000
+  [08:22:03] [Epoch 1/1] step 22050/27037 | loss 0.5787 | lr 1.80e-06 | DriveLM 1/4
+  [08:25:25] [Epoch 1/1] step 22100/27037 | loss 0.5784 | lr 1.77e-06 | DriveLM 1/4
+  [08:28:48] [Epoch 1/1] step 22150/27037 | loss 0.5781 | lr 1.73e-06 | DriveLM 1/4
+  [08:32:11] [Epoch 1/1] step 22200/27037 | loss 0.5778 | lr 1.70e-06 | DriveLM 2/4
+  [08:35:33] [Epoch 1/1] step 22250/27037 | loss 0.5774 | lr 1.67e-06 | DriveLM 3/4
+  [08:38:56] [Epoch 1/1] step 22300/27037 | loss 0.5771 | lr 1.63e-06 | DriveLM 3/4
+  [08:42:18] [Epoch 1/1] step 22350/27037 | loss 0.5767 | lr 1.60e-06 | DriveLM 2/4
+  [08:45:41] [Epoch 1/1] step 22400/27037 | loss 0.5764 | lr 1.57e-06 | DriveLM 1/4
+  [08:49:03] [Epoch 1/1] step 22450/27037 | loss 0.5761 | lr 1.53e-06 | DriveLM 3/4
+  [08:52:25] [Epoch 1/1] step 22500/27037 | loss 0.5757 | lr 1.50e-06 | DriveLM 2/4
+  [08:55:48] [Epoch 1/1] step 22550/27037 | loss 0.5753 | lr 1.47e-06 | DriveLM 2/4
+  [08:59:10] [Epoch 1/1] step 22600/27037 | loss 0.5751 | lr 1.44e-06 | DriveLM 4/4
+  [09:02:33] [Epoch 1/1] step 22650/27037 | loss 0.5749 | lr 1.41e-06 | DriveLM 1/4
+  [09:05:56] [Epoch 1/1] step 22700/27037 | loss 0.5746 | lr 1.37e-06 | DriveLM 3/4
+  [09:09:18] [Epoch 1/1] step 22750/27037 | loss 0.5742 | lr 1.34e-06 | DriveLM 3/4
+  [09:12:41] [Epoch 1/1] step 22800/27037 | loss 0.5738 | lr 1.31e-06 | DriveLM 2/4
+  [09:16:03] [Epoch 1/1] step 22850/27037 | loss 0.5735 | lr 1.28e-06 | DriveLM 1/4
+  [09:19:25] [Epoch 1/1] step 22900/27037 | loss 0.5732 | lr 1.25e-06 | DriveLM 4/4
+  [09:22:47] [Epoch 1/1] step 22950/27037 | loss 0.5729 | lr 1.22e-06 | DriveLM 1/4
+  [09:26:08] [Epoch 1/1] step 23000/27037 | loss 0.5726 | lr 1.19e-06 | DriveLM 0/4
+  체크포인트 저장: checkpoints/student_baseline/step_23000
+  [09:29:34] [Epoch 1/1] step 23050/27037 | loss 0.5722 | lr 1.17e-06 | DriveLM 4/4
+  [09:32:55] [Epoch 1/1] step 23100/27037 | loss 0.5719 | lr 1.14e-06 | DriveLM 1/4
+  [09:36:17] [Epoch 1/1] step 23150/27037 | loss 0.5716 | lr 1.11e-06 | DriveLM 1/4
+  [09:39:38] [Epoch 1/1] step 23200/27037 | loss 0.5712 | lr 1.08e-06 | DriveLM 1/4
+  [09:43:00] [Epoch 1/1] step 23250/27037 | loss 0.5709 | lr 1.05e-06 | DriveLM 3/4
+  [09:46:21] [Epoch 1/1] step 23300/27037 | loss 0.5706 | lr 1.03e-06 | DriveLM 2/4
+  [09:49:43] [Epoch 1/1] step 23350/27037 | loss 0.5702 | lr 1.00e-06 | DriveLM 1/4
+  [09:53:04] [Epoch 1/1] step 23400/27037 | loss 0.5700 | lr 9.73e-07 | DriveLM 2/4
+  [09:56:26] [Epoch 1/1] step 23450/27037 | loss 0.5696 | lr 9.47e-07 | DriveLM 0/4
+  [09:59:47] [Epoch 1/1] step 23500/27037 | loss 0.5693 | lr 9.21e-07 | DriveLM 2/4
+  [10:03:08] [Epoch 1/1] step 23550/27037 | loss 0.5690 | lr 8.96e-07 | DriveLM 1/4
+  [10:06:30] [Epoch 1/1] step 23600/27037 | loss 0.5687 | lr 8.71e-07 | DriveLM 1/4
+  [10:09:51] [Epoch 1/1] step 23650/27037 | loss 0.5684 | lr 8.46e-07 | DriveLM 2/4
+  [10:13:12] [Epoch 1/1] step 23700/27037 | loss 0.5680 | lr 8.21e-07 | DriveLM 1/4
+  [10:16:33] [Epoch 1/1] step 23750/27037 | loss 0.5677 | lr 7.97e-07 | DriveLM 2/4
+  [10:19:54] [Epoch 1/1] step 23800/27037 | loss 0.5674 | lr 7.74e-07 | DriveLM 2/4
+  [10:23:16] [Epoch 1/1] step 23850/27037 | loss 0.5672 | lr 7.50e-07 | DriveLM 4/4
+  [10:26:37] [Epoch 1/1] step 23900/27037 | loss 0.5669 | lr 7.27e-07 | DriveLM 1/4
+  [10:29:58] [Epoch 1/1] step 23950/27037 | loss 0.5667 | lr 7.04e-07 | DriveLM 3/4
+  [10:33:19] [Epoch 1/1] step 24000/27037 | loss 0.5664 | lr 6.82e-07 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_24000
+  [10:36:42] [Epoch 1/1] step 24050/27037 | loss 0.5661 | lr 6.60e-07 | DriveLM 0/4
+  [10:40:03] [Epoch 1/1] step 24100/27037 | loss 0.5659 | lr 6.38e-07 | DriveLM 1/4
+  [10:43:25] [Epoch 1/1] step 24150/27037 | loss 0.5656 | lr 6.17e-07 | DriveLM 1/4
+  [10:46:46] [Epoch 1/1] step 24200/27037 | loss 0.5653 | lr 5.96e-07 | DriveLM 1/4
+  [10:50:07] [Epoch 1/1] step 24250/27037 | loss 0.5650 | lr 5.75e-07 | DriveLM 0/4
+  [10:53:28] [Epoch 1/1] step 24300/27037 | loss 0.5647 | lr 5.55e-07 | DriveLM 3/4
+  [10:56:49] [Epoch 1/1] step 24350/27037 | loss 0.5644 | lr 5.35e-07 | DriveLM 0/4
+  [11:00:10] [Epoch 1/1] step 24400/27037 | loss 0.5640 | lr 5.16e-07 | DriveLM 1/4
+  [11:03:31] [Epoch 1/1] step 24450/27037 | loss 0.5637 | lr 4.96e-07 | DriveLM 1/4
+  [11:06:53] [Epoch 1/1] step 24500/27037 | loss 0.5635 | lr 4.78e-07 | DriveLM 1/4
+  [11:10:14] [Epoch 1/1] step 24550/27037 | loss 0.5631 | lr 4.59e-07 | DriveLM 0/4
+  [11:13:35] [Epoch 1/1] step 24600/27037 | loss 0.5629 | lr 4.41e-07 | DriveLM 2/4
+  [11:16:56] [Epoch 1/1] step 24650/27037 | loss 0.5626 | lr 4.23e-07 | DriveLM 1/4
+  [11:20:17] [Epoch 1/1] step 24700/27037 | loss 0.5623 | lr 4.06e-07 | DriveLM 0/4
+  [11:23:38] [Epoch 1/1] step 24750/27037 | loss 0.5620 | lr 3.89e-07 | DriveLM 2/4
+  [11:26:59] [Epoch 1/1] step 24800/27037 | loss 0.5617 | lr 3.72e-07 | DriveLM 2/4
+  [11:30:21] [Epoch 1/1] step 24850/27037 | loss 0.5615 | lr 3.56e-07 | DriveLM 2/4
+  [11:33:42] [Epoch 1/1] step 24900/27037 | loss 0.5612 | lr 3.40e-07 | DriveLM 2/4
+  [11:37:03] [Epoch 1/1] step 24950/27037 | loss 0.5609 | lr 3.24e-07 | DriveLM 2/4
+  [11:40:24] [Epoch 1/1] step 25000/27037 | loss 0.5607 | lr 3.09e-07 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_25000
+  [11:43:47] [Epoch 1/1] step 25050/27037 | loss 0.5604 | lr 2.94e-07 | DriveLM 3/4
+  [11:47:08] [Epoch 1/1] step 25100/27037 | loss 0.5601 | lr 2.79e-07 | DriveLM 2/4
+  [11:50:29] [Epoch 1/1] step 25150/27037 | loss 0.5599 | lr 2.65e-07 | DriveLM 2/4
+  [11:53:50] [Epoch 1/1] step 25200/27037 | loss 0.5596 | lr 2.51e-07 | DriveLM 2/4
+  [11:57:11] [Epoch 1/1] step 25250/27037 | loss 0.5593 | lr 2.38e-07 | DriveLM 3/4
+  [12:00:33] [Epoch 1/1] step 25300/27037 | loss 0.5590 | lr 2.25e-07 | DriveLM 0/4
+  [12:03:54] [Epoch 1/1] step 25350/27037 | loss 0.5588 | lr 2.12e-07 | DriveLM 2/4
+  [12:07:15] [Epoch 1/1] step 25400/27037 | loss 0.5585 | lr 2.00e-07 | DriveLM 1/4
+  [12:10:36] [Epoch 1/1] step 25450/27037 | loss 0.5583 | lr 1.88e-07 | DriveLM 2/4
+  [12:13:58] [Epoch 1/1] step 25500/27037 | loss 0.5580 | lr 1.76e-07 | DriveLM 1/4
+  [12:17:19] [Epoch 1/1] step 25550/27037 | loss 0.5577 | lr 1.65e-07 | DriveLM 2/4
+  [12:20:40] [Epoch 1/1] step 25600/27037 | loss 0.5575 | lr 1.54e-07 | DriveLM 2/4
+  [12:24:01] [Epoch 1/1] step 25650/27037 | loss 0.5572 | lr 1.44e-07 | DriveLM 2/4
+  [12:27:22] [Epoch 1/1] step 25700/27037 | loss 0.5570 | lr 1.33e-07 | DriveLM 1/4
+  [12:30:44] [Epoch 1/1] step 25750/27037 | loss 0.5568 | lr 1.24e-07 | DriveLM 2/4
+  [12:34:05] [Epoch 1/1] step 25800/27037 | loss 0.5564 | lr 1.14e-07 | DriveLM 0/4
+  [12:37:27] [Epoch 1/1] step 25850/27037 | loss 0.5562 | lr 1.05e-07 | DriveLM 0/4
+  [12:40:48] [Epoch 1/1] step 25900/27037 | loss 0.5560 | lr 9.65e-08 | DriveLM 1/4
+  [12:44:10] [Epoch 1/1] step 25950/27037 | loss 0.5556 | lr 8.82e-08 | DriveLM 3/4
+  [12:47:31] [Epoch 1/1] step 26000/27037 | loss 0.5554 | lr 8.03e-08 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_26000
+  [12:50:54] [Epoch 1/1] step 26050/27037 | loss 0.5551 | lr 7.28e-08 | DriveLM 1/4
+  [12:54:15] [Epoch 1/1] step 26100/27037 | loss 0.5548 | lr 6.56e-08 | DriveLM 1/4
+  [12:57:36] [Epoch 1/1] step 26150/27037 | loss 0.5546 | lr 5.88e-08 | DriveLM 2/4
+  [13:00:58] [Epoch 1/1] step 26200/27037 | loss 0.5543 | lr 5.24e-08 | DriveLM 0/4
+  [13:04:19] [Epoch 1/1] step 26250/27037 | loss 0.5542 | lr 4.63e-08 | DriveLM 1/4
+  [13:07:41] [Epoch 1/1] step 26300/27037 | loss 0.5539 | lr 4.06e-08 | DriveLM 3/4
+  [13:11:02] [Epoch 1/1] step 26350/27037 | loss 0.5537 | lr 3.53e-08 | DriveLM 2/4
+  [13:14:24] [Epoch 1/1] step 26400/27037 | loss 0.5534 | lr 3.03e-08 | DriveLM 1/4
+  [13:17:45] [Epoch 1/1] step 26450/27037 | loss 0.5532 | lr 2.58e-08 | DriveLM 0/4
+  [13:21:07] [Epoch 1/1] step 26500/27037 | loss 0.5530 | lr 2.16e-08 | DriveLM 3/4
+  [13:24:28] [Epoch 1/1] step 26550/27037 | loss 0.5528 | lr 1.77e-08 | DriveLM 0/4
+  [13:27:50] [Epoch 1/1] step 26600/27037 | loss 0.5527 | lr 1.43e-08 | DriveLM 2/4
+  [13:31:11] [Epoch 1/1] step 26650/27037 | loss 0.5524 | lr 1.12e-08 | DriveLM 0/4
+  [13:34:32] [Epoch 1/1] step 26700/27037 | loss 0.5522 | lr 8.49e-09 | DriveLM 1/4
+  [13:37:54] [Epoch 1/1] step 26750/27037 | loss 0.5519 | lr 6.16e-09 | DriveLM 1/4
+  [13:41:16] [Epoch 1/1] step 26800/27037 | loss 0.5518 | lr 4.20e-09 | DriveLM 1/4
+  [13:44:37] [Epoch 1/1] step 26850/27037 | loss 0.5516 | lr 2.62e-09 | DriveLM 2/4
+  [13:47:59] [Epoch 1/1] step 26900/27037 | loss 0.5514 | lr 1.40e-09 | DriveLM 2/4
+  [13:51:21] [Epoch 1/1] step 26950/27037 | loss 0.5511 | lr 5.66e-10 | DriveLM 2/4
+  [13:54:42] [Epoch 1/1] step 27000/27037 | loss 0.5509 | lr 1.02e-10 | DriveLM 2/4
+  체크포인트 저장: checkpoints/student_baseline/step_27000
+
+[Epoch 1 완료] avg_loss=0.5508
+
+  체크포인트 저장: checkpoints/student_baseline/epoch_1
+
+Baseline Fine-tuning 완료!
+최종 체크포인트: checkpoints/student_baseline/epoch_1

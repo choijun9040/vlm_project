@@ -1,0 +1,628 @@
+nohup: ignoring input
+
+위험도 라벨 로드: 4072개
+
+[Teacher] 로드: Qwen/Qwen2.5-VL-7B-Instruct
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:02,  1.68it/s]
+Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:01,  1.69it/s]
+Loading checkpoint shards:  60%|██████    | 3/5 [00:01<00:01,  1.66it/s]
+Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.65it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:02<00:00,  2.09it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:02<00:00,  1.88it/s]
+  Teacher frozen (전체 파라미터 학습 안 함)
+  Student processor 다운로드 중...
+  Student processor 준비 완료
+
+[Student] 처음부터 로드: Qwen/Qwen2.5-VL-3B-Instruct
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  6.26it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  7.22it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  7.06it/s]
+trainable params: 37,152,768 || all params: 3,791,775,744 || trainable%: 0.9798
+
+DataLoader 구성 중...
+[build_token_to_images] 총 토큰 수: 4072
+[DriveLMDataset] 총 샘플 수: 377983
+[NuScenesQADataset] 전체: 376604, 매핑 가능: 54607
+
+[DataLoader 구성]
+  DriveLM:     377,983개  (배치 내 목표 비율: 40%)
+  NuScenes-QA: 54,607개  (배치 내 목표 비율: 60%)
+  batch_size:  2
+  전체 스텝/epoch: 216,295
+
+============================================================
+Stage 3: Driving-Aware Distillation 시작
+  Teacher:        Qwen/Qwen2.5-VL-7B-Instruct + LoRA
+  Student:        Qwen/Qwen2.5-VL-3B-Instruct + LoRA
+  시작:           처음부터
+  epochs:         1
+  batch_size:     2
+  effective_batch:16
+  total_steps:    27037
+  warmup_steps:   1351
+  learning_rate:  2e-05
+  lambda_hazard:  1.0
+  kd_temperature: 4.0
+============================================================
+
+/venv/main/lib/python3.10/site-packages/torch/nn/modules/conv.py:605: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+  return F.conv3d(
+  [01:33:09] [Epoch 1/1] step 50/27037 | loss 11.3213 (task=6.552 hzd=4.769) | lr 7.40e-07 | DriveLM 2/2
+  [01:38:46] [Epoch 1/1] step 100/27037 | loss 11.3231 (task=6.514 hzd=4.809) | lr 1.48e-06 | DriveLM 1/2
+  [01:44:22] [Epoch 1/1] step 150/27037 | loss 10.9947 (task=6.193 hzd=4.802) | lr 2.22e-06 | DriveLM 2/2
+  [01:49:59] [Epoch 1/1] step 200/27037 | loss 10.1892 (task=5.443 hzd=4.746) | lr 2.96e-06 | DriveLM 1/2
+  [01:55:37] [Epoch 1/1] step 250/27037 | loss 9.4857 (task=4.812 hzd=4.673) | lr 3.70e-06 | DriveLM 0/2
+  [02:01:14] [Epoch 1/1] step 300/27037 | loss 8.9094 (task=4.340 hzd=4.570) | lr 4.44e-06 | DriveLM 0/2
+  [02:06:51] [Epoch 1/1] step 350/27037 | loss 8.4116 (task=3.965 hzd=4.446) | lr 5.18e-06 | DriveLM 1/2
+  [02:12:28] [Epoch 1/1] step 400/27037 | loss 7.9903 (task=3.668 hzd=4.323) | lr 5.92e-06 | DriveLM 1/2
+  [02:18:06] [Epoch 1/1] step 450/27037 | loss 7.6223 (task=3.418 hzd=4.204) | lr 6.66e-06 | DriveLM 1/2
+  [02:23:43] [Epoch 1/1] step 500/27037 | loss 7.2974 (task=3.200 hzd=4.097) | lr 7.40e-06 | DriveLM 1/2
+  [02:29:19] [Epoch 1/1] step 550/27037 | loss 7.0124 (task=3.013 hzd=3.999) | lr 8.14e-06 | DriveLM 0/2
+  [02:34:56] [Epoch 1/1] step 600/27037 | loss 6.7629 (task=2.855 hzd=3.908) | lr 8.88e-06 | DriveLM 1/2
+  [02:40:33] [Epoch 1/1] step 650/27037 | loss 6.5433 (task=2.716 hzd=3.828) | lr 9.62e-06 | DriveLM 1/2
+  [02:46:09] [Epoch 1/1] step 700/27037 | loss 6.3470 (task=2.592 hzd=3.755) | lr 1.04e-05 | DriveLM 0/2
+  [02:51:46] [Epoch 1/1] step 750/27037 | loss 6.1693 (task=2.479 hzd=3.690) | lr 1.11e-05 | DriveLM 2/2
+  [02:57:23] [Epoch 1/1] step 800/27037 | loss 6.0076 (task=2.378 hzd=3.630) | lr 1.18e-05 | DriveLM 2/2
+  [03:03:00] [Epoch 1/1] step 850/27037 | loss 5.8657 (task=2.290 hzd=3.576) | lr 1.26e-05 | DriveLM 0/2
+  [03:08:37] [Epoch 1/1] step 900/27037 | loss 5.7329 (task=2.208 hzd=3.525) | lr 1.33e-05 | DriveLM 1/2
+  [03:14:14] [Epoch 1/1] step 950/27037 | loss 5.6140 (task=2.138 hzd=3.476) | lr 1.41e-05 | DriveLM 1/2
+  [03:19:52] [Epoch 1/1] step 1000/27037 | loss 5.5042 (task=2.072 hzd=3.432) | lr 1.48e-05 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_1000
+  [03:25:30] [Epoch 1/1] step 1050/27037 | loss 5.4054 (task=2.013 hzd=3.393) | lr 1.55e-05 | DriveLM 2/2
+  [03:31:07] [Epoch 1/1] step 1100/27037 | loss 5.3158 (task=1.960 hzd=3.356) | lr 1.63e-05 | DriveLM 1/2
+  [03:36:43] [Epoch 1/1] step 1150/27037 | loss 5.2309 (task=1.910 hzd=3.320) | lr 1.70e-05 | DriveLM 0/2
+  [03:42:21] [Epoch 1/1] step 1200/27037 | loss 5.1490 (task=1.861 hzd=3.288) | lr 1.78e-05 | DriveLM 1/2
+  [03:47:58] [Epoch 1/1] step 1250/27037 | loss 5.0713 (task=1.815 hzd=3.257) | lr 1.85e-05 | DriveLM 1/2
+  [03:53:35] [Epoch 1/1] step 1300/27037 | loss 5.0009 (task=1.773 hzd=3.228) | lr 1.92e-05 | DriveLM 2/2
+  [03:59:12] [Epoch 1/1] step 1350/27037 | loss 4.9359 (task=1.736 hzd=3.200) | lr 2.00e-05 | DriveLM 0/2
+  [04:04:49] [Epoch 1/1] step 1400/27037 | loss 4.8753 (task=1.700 hzd=3.175) | lr 2.00e-05 | DriveLM 2/2
+  [04:10:25] [Epoch 1/1] step 1450/27037 | loss 4.8171 (task=1.666 hzd=3.151) | lr 2.00e-05 | DriveLM 0/2
+  [04:16:01] [Epoch 1/1] step 1500/27037 | loss 4.7615 (task=1.635 hzd=3.127) | lr 2.00e-05 | DriveLM 1/2
+  [04:21:38] [Epoch 1/1] step 1550/27037 | loss 4.7095 (task=1.605 hzd=3.105) | lr 2.00e-05 | DriveLM 1/2
+  [04:27:15] [Epoch 1/1] step 1600/27037 | loss 4.6615 (task=1.577 hzd=3.085) | lr 2.00e-05 | DriveLM 0/2
+  [04:32:52] [Epoch 1/1] step 1650/27037 | loss 4.6142 (task=1.550 hzd=3.064) | lr 2.00e-05 | DriveLM 2/2
+  [04:38:28] [Epoch 1/1] step 1700/27037 | loss 4.5721 (task=1.526 hzd=3.046) | lr 2.00e-05 | DriveLM 0/2
+  [04:44:05] [Epoch 1/1] step 1750/27037 | loss 4.5286 (task=1.501 hzd=3.027) | lr 2.00e-05 | DriveLM 2/2
+  [04:49:42] [Epoch 1/1] step 1800/27037 | loss 4.4897 (task=1.479 hzd=3.011) | lr 2.00e-05 | DriveLM 1/2
+  [04:55:19] [Epoch 1/1] step 1850/27037 | loss 4.4528 (task=1.458 hzd=2.995) | lr 2.00e-05 | DriveLM 1/2
+  [05:00:56] [Epoch 1/1] step 1900/27037 | loss 4.4156 (task=1.437 hzd=2.978) | lr 2.00e-05 | DriveLM 1/2
+  [05:06:33] [Epoch 1/1] step 1950/27037 | loss 4.3813 (task=1.418 hzd=2.963) | lr 2.00e-05 | DriveLM 1/2
+  [05:12:11] [Epoch 1/1] step 2000/27037 | loss 4.3502 (task=1.401 hzd=2.949) | lr 2.00e-05 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_2000
+  [05:17:53] [Epoch 1/1] step 2050/27037 | loss 4.3178 (task=1.384 hzd=2.934) | lr 2.00e-05 | DriveLM 1/2
+  [05:23:30] [Epoch 1/1] step 2100/27037 | loss 4.2884 (task=1.368 hzd=2.921) | lr 2.00e-05 | DriveLM 0/2
+  [05:29:06] [Epoch 1/1] step 2150/27037 | loss 4.2591 (task=1.351 hzd=2.908) | lr 2.00e-05 | DriveLM 0/2
+  [05:34:42] [Epoch 1/1] step 2200/27037 | loss 4.2327 (task=1.337 hzd=2.896) | lr 1.99e-05 | DriveLM 1/2
+  [05:40:18] [Epoch 1/1] step 2250/27037 | loss 4.2075 (task=1.323 hzd=2.884) | lr 1.99e-05 | DriveLM 0/2
+  [05:45:54] [Epoch 1/1] step 2300/27037 | loss 4.1827 (task=1.310 hzd=2.873) | lr 1.99e-05 | DriveLM 0/2
+  [05:51:30] [Epoch 1/1] step 2350/27037 | loss 4.1585 (task=1.297 hzd=2.862) | lr 1.99e-05 | DriveLM 2/2
+  [05:57:06] [Epoch 1/1] step 2400/27037 | loss 4.1347 (task=1.283 hzd=2.851) | lr 1.99e-05 | DriveLM 2/2
+  [06:02:42] [Epoch 1/1] step 2450/27037 | loss 4.1117 (task=1.271 hzd=2.841) | lr 1.99e-05 | DriveLM 2/2
+  [06:08:18] [Epoch 1/1] step 2500/27037 | loss 4.0900 (task=1.259 hzd=2.831) | lr 1.99e-05 | DriveLM 1/2
+  [06:13:53] [Epoch 1/1] step 2550/27037 | loss 4.0692 (task=1.247 hzd=2.822) | lr 1.99e-05 | DriveLM 1/2
+  [06:19:28] [Epoch 1/1] step 2600/27037 | loss 4.0478 (task=1.235 hzd=2.812) | lr 1.99e-05 | DriveLM 0/2
+  [06:25:04] [Epoch 1/1] step 2650/27037 | loss 4.0282 (task=1.225 hzd=2.803) | lr 1.99e-05 | DriveLM 2/2
+  [06:30:39] [Epoch 1/1] step 2700/27037 | loss 4.0100 (task=1.215 hzd=2.795) | lr 1.99e-05 | DriveLM 0/2
+  [06:36:15] [Epoch 1/1] step 2750/27037 | loss 3.9911 (task=1.205 hzd=2.786) | lr 1.99e-05 | DriveLM 0/2
+  [06:41:50] [Epoch 1/1] step 2800/27037 | loss 3.9729 (task=1.195 hzd=2.778) | lr 1.98e-05 | DriveLM 0/2
+  [06:47:26] [Epoch 1/1] step 2850/27037 | loss 3.9559 (task=1.186 hzd=2.770) | lr 1.98e-05 | DriveLM 0/2
+  [06:53:02] [Epoch 1/1] step 2900/27037 | loss 3.9394 (task=1.177 hzd=2.762) | lr 1.98e-05 | DriveLM 2/2
+  [06:58:37] [Epoch 1/1] step 2950/27037 | loss 3.9241 (task=1.169 hzd=2.755) | lr 1.98e-05 | DriveLM 0/2
+  [07:04:13] [Epoch 1/1] step 3000/27037 | loss 3.9074 (task=1.160 hzd=2.748) | lr 1.98e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_3000
+  [07:09:49] [Epoch 1/1] step 3050/27037 | loss 3.8914 (task=1.151 hzd=2.740) | lr 1.98e-05 | DriveLM 0/2
+  [07:15:24] [Epoch 1/1] step 3100/27037 | loss 3.8757 (task=1.142 hzd=2.734) | lr 1.98e-05 | DriveLM 0/2
+  [07:20:59] [Epoch 1/1] step 3150/27037 | loss 3.8617 (task=1.135 hzd=2.727) | lr 1.98e-05 | DriveLM 1/2
+  [07:26:34] [Epoch 1/1] step 3200/27037 | loss 3.8468 (task=1.126 hzd=2.720) | lr 1.97e-05 | DriveLM 0/2
+  [07:32:10] [Epoch 1/1] step 3250/27037 | loss 3.8326 (task=1.118 hzd=2.714) | lr 1.97e-05 | DriveLM 0/2
+  [07:37:45] [Epoch 1/1] step 3300/27037 | loss 3.8193 (task=1.111 hzd=2.708) | lr 1.97e-05 | DriveLM 1/2
+  [07:43:20] [Epoch 1/1] step 3350/27037 | loss 3.8059 (task=1.104 hzd=2.702) | lr 1.97e-05 | DriveLM 1/2
+  [07:48:55] [Epoch 1/1] step 3400/27037 | loss 3.7926 (task=1.096 hzd=2.696) | lr 1.97e-05 | DriveLM 1/2
+  [07:54:30] [Epoch 1/1] step 3450/27037 | loss 3.7805 (task=1.091 hzd=2.690) | lr 1.97e-05 | DriveLM 2/2
+  [08:00:05] [Epoch 1/1] step 3500/27037 | loss 3.7680 (task=1.084 hzd=2.684) | lr 1.97e-05 | DriveLM 1/2
+  [08:05:40] [Epoch 1/1] step 3550/27037 | loss 3.7558 (task=1.077 hzd=2.679) | lr 1.96e-05 | DriveLM 0/2
+  [08:11:15] [Epoch 1/1] step 3600/27037 | loss 3.7443 (task=1.071 hzd=2.674) | lr 1.96e-05 | DriveLM 1/2
+  [08:16:50] [Epoch 1/1] step 3650/27037 | loss 3.7335 (task=1.065 hzd=2.668) | lr 1.96e-05 | DriveLM 1/2
+  [08:22:25] [Epoch 1/1] step 3700/27037 | loss 3.7219 (task=1.059 hzd=2.663) | lr 1.96e-05 | DriveLM 1/2
+  [08:28:00] [Epoch 1/1] step 3750/27037 | loss 3.7122 (task=1.053 hzd=2.659) | lr 1.96e-05 | DriveLM 2/2
+  [08:33:34] [Epoch 1/1] step 3800/27037 | loss 3.7018 (task=1.048 hzd=2.654) | lr 1.96e-05 | DriveLM 1/2
+  [08:39:09] [Epoch 1/1] step 3850/27037 | loss 3.6918 (task=1.043 hzd=2.649) | lr 1.95e-05 | DriveLM 1/2
+  [08:44:44] [Epoch 1/1] step 3900/27037 | loss 3.6813 (task=1.037 hzd=2.644) | lr 1.95e-05 | DriveLM 1/2
+  [08:50:20] [Epoch 1/1] step 3950/27037 | loss 3.6716 (task=1.032 hzd=2.640) | lr 1.95e-05 | DriveLM 1/2
+  [08:55:54] [Epoch 1/1] step 4000/27037 | loss 3.6620 (task=1.027 hzd=2.635) | lr 1.95e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_4000
+  [09:01:31] [Epoch 1/1] step 4050/27037 | loss 3.6529 (task=1.021 hzd=2.631) | lr 1.95e-05 | DriveLM 0/2
+  [09:07:05] [Epoch 1/1] step 4100/27037 | loss 3.6437 (task=1.017 hzd=2.627) | lr 1.94e-05 | DriveLM 1/2
+  [09:12:38] [Epoch 1/1] step 4150/27037 | loss 3.6342 (task=1.012 hzd=2.623) | lr 1.94e-05 | DriveLM 1/2
+  [09:18:10] [Epoch 1/1] step 4200/27037 | loss 3.6257 (task=1.007 hzd=2.618) | lr 1.94e-05 | DriveLM 1/2
+  [09:23:43] [Epoch 1/1] step 4250/27037 | loss 3.6175 (task=1.003 hzd=2.614) | lr 1.94e-05 | DriveLM 1/2
+  [09:29:16] [Epoch 1/1] step 4300/27037 | loss 3.6097 (task=0.999 hzd=2.611) | lr 1.94e-05 | DriveLM 1/2
+  [09:34:49] [Epoch 1/1] step 4350/27037 | loss 3.6021 (task=0.995 hzd=2.607) | lr 1.93e-05 | DriveLM 2/2
+  [09:40:23] [Epoch 1/1] step 4400/27037 | loss 3.5941 (task=0.991 hzd=2.604) | lr 1.93e-05 | DriveLM 1/2
+  [09:45:56] [Epoch 1/1] step 4450/27037 | loss 3.5866 (task=0.987 hzd=2.600) | lr 1.93e-05 | DriveLM 0/2
+  [09:51:30] [Epoch 1/1] step 4500/27037 | loss 3.5792 (task=0.983 hzd=2.596) | lr 1.93e-05 | DriveLM 2/2
+  [09:57:03] [Epoch 1/1] step 4550/27037 | loss 3.5720 (task=0.979 hzd=2.593) | lr 1.92e-05 | DriveLM 0/2
+  [10:02:36] [Epoch 1/1] step 4600/27037 | loss 3.5650 (task=0.975 hzd=2.590) | lr 1.92e-05 | DriveLM 0/2
+  [10:08:09] [Epoch 1/1] step 4650/27037 | loss 3.5584 (task=0.972 hzd=2.587) | lr 1.92e-05 | DriveLM 2/2
+  [10:13:43] [Epoch 1/1] step 4700/27037 | loss 3.5507 (task=0.968 hzd=2.583) | lr 1.92e-05 | DriveLM 1/2
+  [10:19:16] [Epoch 1/1] step 4750/27037 | loss 3.5439 (task=0.964 hzd=2.580) | lr 1.91e-05 | DriveLM 1/2
+  [10:24:49] [Epoch 1/1] step 4800/27037 | loss 3.5367 (task=0.960 hzd=2.577) | lr 1.91e-05 | DriveLM 1/2
+  [10:30:22] [Epoch 1/1] step 4850/27037 | loss 3.5301 (task=0.956 hzd=2.574) | lr 1.91e-05 | DriveLM 0/2
+  [10:35:56] [Epoch 1/1] step 4900/27037 | loss 3.5234 (task=0.953 hzd=2.571) | lr 1.91e-05 | DriveLM 0/2
+  [10:41:30] [Epoch 1/1] step 4950/27037 | loss 3.5172 (task=0.950 hzd=2.567) | lr 1.90e-05 | DriveLM 1/2
+  [10:47:03] [Epoch 1/1] step 5000/27037 | loss 3.5107 (task=0.946 hzd=2.565) | lr 1.90e-05 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_5000
+  [10:52:38] [Epoch 1/1] step 5050/27037 | loss 3.5049 (task=0.943 hzd=2.562) | lr 1.90e-05 | DriveLM 0/2
+  [10:58:11] [Epoch 1/1] step 5100/27037 | loss 3.4986 (task=0.940 hzd=2.559) | lr 1.90e-05 | DriveLM 0/2
+  [11:03:44] [Epoch 1/1] step 5150/27037 | loss 3.4927 (task=0.936 hzd=2.556) | lr 1.89e-05 | DriveLM 0/2
+  [11:09:17] [Epoch 1/1] step 5200/27037 | loss 3.4862 (task=0.933 hzd=2.553) | lr 1.89e-05 | DriveLM 1/2
+  [11:14:50] [Epoch 1/1] step 5250/27037 | loss 3.4807 (task=0.930 hzd=2.551) | lr 1.89e-05 | DriveLM 0/2
+  [11:20:23] [Epoch 1/1] step 5300/27037 | loss 3.4746 (task=0.927 hzd=2.548) | lr 1.89e-05 | DriveLM 1/2
+  [11:25:56] [Epoch 1/1] step 5350/27037 | loss 3.4691 (task=0.924 hzd=2.545) | lr 1.88e-05 | DriveLM 0/2
+  [11:31:29] [Epoch 1/1] step 5400/27037 | loss 3.4636 (task=0.921 hzd=2.543) | lr 1.88e-05 | DriveLM 1/2
+  [11:37:02] [Epoch 1/1] step 5450/27037 | loss 3.4581 (task=0.918 hzd=2.540) | lr 1.88e-05 | DriveLM 0/2
+  [11:42:35] [Epoch 1/1] step 5500/27037 | loss 3.4524 (task=0.915 hzd=2.538) | lr 1.87e-05 | DriveLM 0/2
+  [11:48:08] [Epoch 1/1] step 5550/27037 | loss 3.4470 (task=0.912 hzd=2.535) | lr 1.87e-05 | DriveLM 1/2
+  [11:53:41] [Epoch 1/1] step 5600/27037 | loss 3.4414 (task=0.909 hzd=2.533) | lr 1.87e-05 | DriveLM 0/2
+  [11:59:14] [Epoch 1/1] step 5650/27037 | loss 3.4365 (task=0.906 hzd=2.531) | lr 1.86e-05 | DriveLM 1/2
+  [12:04:47] [Epoch 1/1] step 5700/27037 | loss 3.4313 (task=0.903 hzd=2.528) | lr 1.86e-05 | DriveLM 1/2
+  [12:10:20] [Epoch 1/1] step 5750/27037 | loss 3.4267 (task=0.901 hzd=2.526) | lr 1.86e-05 | DriveLM 0/2
+  [12:15:53] [Epoch 1/1] step 5800/27037 | loss 3.4223 (task=0.899 hzd=2.524) | lr 1.86e-05 | DriveLM 1/2
+  [12:21:25] [Epoch 1/1] step 5850/27037 | loss 3.4178 (task=0.896 hzd=2.521) | lr 1.85e-05 | DriveLM 0/2
+  [12:26:58] [Epoch 1/1] step 5900/27037 | loss 3.4129 (task=0.894 hzd=2.519) | lr 1.85e-05 | DriveLM 0/2
+  [12:32:31] [Epoch 1/1] step 5950/27037 | loss 3.4082 (task=0.891 hzd=2.517) | lr 1.85e-05 | DriveLM 0/2
+  [12:38:05] [Epoch 1/1] step 6000/27037 | loss 3.4035 (task=0.889 hzd=2.515) | lr 1.84e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_6000
+  [12:43:39] [Epoch 1/1] step 6050/27037 | loss 3.3991 (task=0.886 hzd=2.513) | lr 1.84e-05 | DriveLM 2/2
+  [12:49:12] [Epoch 1/1] step 6100/27037 | loss 3.3946 (task=0.884 hzd=2.511) | lr 1.84e-05 | DriveLM 0/2
+  [12:54:48] [Epoch 1/1] step 6150/27037 | loss 3.3902 (task=0.882 hzd=2.509) | lr 1.83e-05 | DriveLM 1/2
+  [13:00:21] [Epoch 1/1] step 6200/27037 | loss 3.3860 (task=0.880 hzd=2.507) | lr 1.83e-05 | DriveLM 0/2
+  [13:05:55] [Epoch 1/1] step 6250/27037 | loss 3.3817 (task=0.877 hzd=2.504) | lr 1.83e-05 | DriveLM 1/2
+  [13:11:28] [Epoch 1/1] step 6300/27037 | loss 3.3776 (task=0.875 hzd=2.502) | lr 1.82e-05 | DriveLM 1/2
+  [13:17:01] [Epoch 1/1] step 6350/27037 | loss 3.3738 (task=0.873 hzd=2.500) | lr 1.82e-05 | DriveLM 1/2
+  [13:22:34] [Epoch 1/1] step 6400/27037 | loss 3.3693 (task=0.871 hzd=2.498) | lr 1.82e-05 | DriveLM 1/2
+  [13:28:08] [Epoch 1/1] step 6450/27037 | loss 3.3650 (task=0.869 hzd=2.496) | lr 1.81e-05 | DriveLM 0/2
+  [13:33:40] [Epoch 1/1] step 6500/27037 | loss 3.3608 (task=0.866 hzd=2.494) | lr 1.81e-05 | DriveLM 1/2
+  [13:39:13] [Epoch 1/1] step 6550/27037 | loss 3.3572 (task=0.865 hzd=2.493) | lr 1.80e-05 | DriveLM 1/2
+  [13:44:47] [Epoch 1/1] step 6600/27037 | loss 3.3536 (task=0.863 hzd=2.491) | lr 1.80e-05 | DriveLM 2/2
+  [13:50:20] [Epoch 1/1] step 6650/27037 | loss 3.3499 (task=0.861 hzd=2.489) | lr 1.80e-05 | DriveLM 0/2
+  [13:55:53] [Epoch 1/1] step 6700/27037 | loss 3.3461 (task=0.859 hzd=2.487) | lr 1.79e-05 | DriveLM 0/2
+  [14:01:27] [Epoch 1/1] step 6750/27037 | loss 3.3423 (task=0.857 hzd=2.485) | lr 1.79e-05 | DriveLM 1/2
+  [14:07:00] [Epoch 1/1] step 6800/27037 | loss 3.3383 (task=0.855 hzd=2.483) | lr 1.79e-05 | DriveLM 1/2
+  [14:12:33] [Epoch 1/1] step 6850/27037 | loss 3.3348 (task=0.853 hzd=2.482) | lr 1.78e-05 | DriveLM 1/2
+  [14:18:06] [Epoch 1/1] step 6900/27037 | loss 3.3311 (task=0.851 hzd=2.480) | lr 1.78e-05 | DriveLM 1/2
+  [14:23:40] [Epoch 1/1] step 6950/27037 | loss 3.3275 (task=0.849 hzd=2.478) | lr 1.77e-05 | DriveLM 0/2
+  [14:29:13] [Epoch 1/1] step 7000/27037 | loss 3.3240 (task=0.847 hzd=2.476) | lr 1.77e-05 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_7000
+  [14:34:47] [Epoch 1/1] step 7050/27037 | loss 3.3207 (task=0.846 hzd=2.475) | lr 1.77e-05 | DriveLM 1/2
+  [14:40:19] [Epoch 1/1] step 7100/27037 | loss 3.3174 (task=0.844 hzd=2.473) | lr 1.76e-05 | DriveLM 1/2
+  [14:45:52] [Epoch 1/1] step 7150/27037 | loss 3.3140 (task=0.842 hzd=2.472) | lr 1.76e-05 | DriveLM 1/2
+  [14:51:24] [Epoch 1/1] step 7200/27037 | loss 3.3105 (task=0.840 hzd=2.470) | lr 1.75e-05 | DriveLM 1/2
+  [14:56:56] [Epoch 1/1] step 7250/27037 | loss 3.3071 (task=0.839 hzd=2.469) | lr 1.75e-05 | DriveLM 1/2
+  [15:02:29] [Epoch 1/1] step 7300/27037 | loss 3.3039 (task=0.837 hzd=2.467) | lr 1.75e-05 | DriveLM 1/2
+  [15:08:01] [Epoch 1/1] step 7350/27037 | loss 3.3008 (task=0.835 hzd=2.465) | lr 1.74e-05 | DriveLM 1/2
+  [15:13:33] [Epoch 1/1] step 7400/27037 | loss 3.2977 (task=0.834 hzd=2.464) | lr 1.74e-05 | DriveLM 1/2
+  [15:19:06] [Epoch 1/1] step 7450/27037 | loss 3.2946 (task=0.832 hzd=2.462) | lr 1.73e-05 | DriveLM 1/2
+  [15:24:39] [Epoch 1/1] step 7500/27037 | loss 3.2912 (task=0.831 hzd=2.461) | lr 1.73e-05 | DriveLM 2/2
+  [15:30:11] [Epoch 1/1] step 7550/27037 | loss 3.2881 (task=0.829 hzd=2.459) | lr 1.73e-05 | DriveLM 1/2
+  [15:35:43] [Epoch 1/1] step 7600/27037 | loss 3.2850 (task=0.827 hzd=2.458) | lr 1.72e-05 | DriveLM 1/2
+  [15:41:15] [Epoch 1/1] step 7650/27037 | loss 3.2822 (task=0.826 hzd=2.457) | lr 1.72e-05 | DriveLM 0/2
+  [15:46:47] [Epoch 1/1] step 7700/27037 | loss 3.2789 (task=0.824 hzd=2.455) | lr 1.71e-05 | DriveLM 0/2
+  [15:52:19] [Epoch 1/1] step 7750/27037 | loss 3.2764 (task=0.823 hzd=2.454) | lr 1.71e-05 | DriveLM 0/2
+  [15:57:51] [Epoch 1/1] step 7800/27037 | loss 3.2737 (task=0.821 hzd=2.452) | lr 1.70e-05 | DriveLM 0/2
+  [16:03:24] [Epoch 1/1] step 7850/27037 | loss 3.2709 (task=0.820 hzd=2.451) | lr 1.70e-05 | DriveLM 1/2
+  [16:08:56] [Epoch 1/1] step 7900/27037 | loss 3.2679 (task=0.818 hzd=2.450) | lr 1.70e-05 | DriveLM 0/2
+  [16:14:28] [Epoch 1/1] step 7950/27037 | loss 3.2652 (task=0.817 hzd=2.448) | lr 1.69e-05 | DriveLM 1/2
+  [16:20:00] [Epoch 1/1] step 8000/27037 | loss 3.2624 (task=0.815 hzd=2.447) | lr 1.69e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_8000
+  [16:25:34] [Epoch 1/1] step 8050/27037 | loss 3.2599 (task=0.814 hzd=2.446) | lr 1.68e-05 | DriveLM 1/2
+  [16:31:07] [Epoch 1/1] step 8100/27037 | loss 3.2570 (task=0.813 hzd=2.444) | lr 1.68e-05 | DriveLM 1/2
+  [16:36:39] [Epoch 1/1] step 8150/27037 | loss 3.2543 (task=0.811 hzd=2.443) | lr 1.67e-05 | DriveLM 2/2
+  [16:42:12] [Epoch 1/1] step 8200/27037 | loss 3.2515 (task=0.810 hzd=2.442) | lr 1.67e-05 | DriveLM 1/2
+  [16:47:45] [Epoch 1/1] step 8250/27037 | loss 3.2490 (task=0.808 hzd=2.441) | lr 1.66e-05 | DriveLM 0/2
+  [16:53:18] [Epoch 1/1] step 8300/27037 | loss 3.2466 (task=0.807 hzd=2.439) | lr 1.66e-05 | DriveLM 1/2
+  [16:58:51] [Epoch 1/1] step 8350/27037 | loss 3.2438 (task=0.806 hzd=2.438) | lr 1.66e-05 | DriveLM 1/2
+  [17:04:23] [Epoch 1/1] step 8400/27037 | loss 3.2412 (task=0.804 hzd=2.437) | lr 1.65e-05 | DriveLM 2/2
+  [17:09:56] [Epoch 1/1] step 8450/27037 | loss 3.2385 (task=0.803 hzd=2.436) | lr 1.65e-05 | DriveLM 0/2
+  [17:15:28] [Epoch 1/1] step 8500/27037 | loss 3.2357 (task=0.801 hzd=2.434) | lr 1.64e-05 | DriveLM 0/2
+  [17:21:01] [Epoch 1/1] step 8550/27037 | loss 3.2334 (task=0.800 hzd=2.433) | lr 1.64e-05 | DriveLM 1/2
+  [17:26:34] [Epoch 1/1] step 8600/27037 | loss 3.2309 (task=0.799 hzd=2.432) | lr 1.63e-05 | DriveLM 1/2
+  [17:32:06] [Epoch 1/1] step 8650/27037 | loss 3.2285 (task=0.798 hzd=2.431) | lr 1.63e-05 | DriveLM 1/2
+  [17:37:39] [Epoch 1/1] step 8700/27037 | loss 3.2262 (task=0.796 hzd=2.430) | lr 1.62e-05 | DriveLM 2/2
+  [17:43:11] [Epoch 1/1] step 8750/27037 | loss 3.2240 (task=0.795 hzd=2.429) | lr 1.62e-05 | DriveLM 1/2
+  [17:48:43] [Epoch 1/1] step 8800/27037 | loss 3.2215 (task=0.794 hzd=2.428) | lr 1.61e-05 | DriveLM 0/2
+  [17:54:16] [Epoch 1/1] step 8850/27037 | loss 3.2192 (task=0.793 hzd=2.426) | lr 1.61e-05 | DriveLM 1/2
+  [17:59:48] [Epoch 1/1] step 8900/27037 | loss 3.2168 (task=0.791 hzd=2.425) | lr 1.60e-05 | DriveLM 1/2
+  [18:05:20] [Epoch 1/1] step 8950/27037 | loss 3.2145 (task=0.790 hzd=2.424) | lr 1.60e-05 | DriveLM 1/2
+  [18:10:53] [Epoch 1/1] step 9000/27037 | loss 3.2124 (task=0.789 hzd=2.423) | lr 1.59e-05 | DriveLM 2/2
+  체크포인트 저장: checkpoints/student_distill_2/step_9000
+  [18:16:26] [Epoch 1/1] step 9050/27037 | loss 3.2102 (task=0.788 hzd=2.422) | lr 1.59e-05 | DriveLM 1/2
+  [18:21:59] [Epoch 1/1] step 9100/27037 | loss 3.2081 (task=0.787 hzd=2.421) | lr 1.58e-05 | DriveLM 1/2
+  [18:27:31] [Epoch 1/1] step 9150/27037 | loss 3.2058 (task=0.786 hzd=2.420) | lr 1.58e-05 | DriveLM 2/2
+  [18:33:04] [Epoch 1/1] step 9200/27037 | loss 3.2038 (task=0.785 hzd=2.419) | lr 1.57e-05 | DriveLM 1/2
+  [18:38:36] [Epoch 1/1] step 9250/27037 | loss 3.2015 (task=0.784 hzd=2.418) | lr 1.57e-05 | DriveLM 1/2
+  [18:44:09] [Epoch 1/1] step 9300/27037 | loss 3.1993 (task=0.783 hzd=2.417) | lr 1.56e-05 | DriveLM 0/2
+  [18:49:41] [Epoch 1/1] step 9350/27037 | loss 3.1970 (task=0.781 hzd=2.416) | lr 1.56e-05 | DriveLM 0/2
+  [18:55:13] [Epoch 1/1] step 9400/27037 | loss 3.1948 (task=0.780 hzd=2.415) | lr 1.55e-05 | DriveLM 2/2
+  [19:00:46] [Epoch 1/1] step 9450/27037 | loss 3.1929 (task=0.779 hzd=2.414) | lr 1.55e-05 | DriveLM 0/2
+  [19:06:19] [Epoch 1/1] step 9500/27037 | loss 3.1908 (task=0.778 hzd=2.413) | lr 1.54e-05 | DriveLM 0/2
+  [19:11:51] [Epoch 1/1] step 9550/27037 | loss 3.1889 (task=0.777 hzd=2.412) | lr 1.54e-05 | DriveLM 2/2
+  [19:17:24] [Epoch 1/1] step 9600/27037 | loss 3.1871 (task=0.776 hzd=2.411) | lr 1.53e-05 | DriveLM 2/2
+  [19:22:56] [Epoch 1/1] step 9650/27037 | loss 3.1848 (task=0.775 hzd=2.410) | lr 1.53e-05 | DriveLM 0/2
+  [19:28:29] [Epoch 1/1] step 9700/27037 | loss 3.1828 (task=0.774 hzd=2.409) | lr 1.52e-05 | DriveLM 0/2
+  [19:34:02] [Epoch 1/1] step 9750/27037 | loss 3.1810 (task=0.773 hzd=2.408) | lr 1.52e-05 | DriveLM 1/2
+  [19:39:34] [Epoch 1/1] step 9800/27037 | loss 3.1791 (task=0.772 hzd=2.407) | lr 1.51e-05 | DriveLM 1/2
+  [19:45:06] [Epoch 1/1] step 9850/27037 | loss 3.1772 (task=0.771 hzd=2.406) | lr 1.51e-05 | DriveLM 0/2
+  [19:50:39] [Epoch 1/1] step 9900/27037 | loss 3.1753 (task=0.770 hzd=2.405) | lr 1.50e-05 | DriveLM 1/2
+  [19:56:11] [Epoch 1/1] step 9950/27037 | loss 3.1732 (task=0.769 hzd=2.404) | lr 1.50e-05 | DriveLM 1/2
+  [20:01:43] [Epoch 1/1] step 10000/27037 | loss 3.1713 (task=0.768 hzd=2.403) | lr 1.49e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_10000
+  [20:07:16] [Epoch 1/1] step 10050/27037 | loss 3.1692 (task=0.767 hzd=2.402) | lr 1.49e-05 | DriveLM 0/2
+  [20:12:49] [Epoch 1/1] step 10100/27037 | loss 3.1673 (task=0.766 hzd=2.401) | lr 1.48e-05 | DriveLM 1/2
+  [20:18:21] [Epoch 1/1] step 10150/27037 | loss 3.1655 (task=0.765 hzd=2.401) | lr 1.47e-05 | DriveLM 1/2
+  [20:23:53] [Epoch 1/1] step 10200/27037 | loss 3.1638 (task=0.764 hzd=2.400) | lr 1.47e-05 | DriveLM 1/2
+  [20:29:25] [Epoch 1/1] step 10250/27037 | loss 3.1619 (task=0.763 hzd=2.399) | lr 1.46e-05 | DriveLM 0/2
+  [20:34:57] [Epoch 1/1] step 10300/27037 | loss 3.1599 (task=0.762 hzd=2.398) | lr 1.46e-05 | DriveLM 0/2
+  [20:40:30] [Epoch 1/1] step 10350/27037 | loss 3.1581 (task=0.761 hzd=2.397) | lr 1.45e-05 | DriveLM 0/2
+  [20:46:02] [Epoch 1/1] step 10400/27037 | loss 3.1561 (task=0.760 hzd=2.396) | lr 1.45e-05 | DriveLM 0/2
+  [20:51:35] [Epoch 1/1] step 10450/27037 | loss 3.1543 (task=0.759 hzd=2.395) | lr 1.44e-05 | DriveLM 2/2
+  [20:57:07] [Epoch 1/1] step 10500/27037 | loss 3.1526 (task=0.758 hzd=2.394) | lr 1.44e-05 | DriveLM 0/2
+  [21:02:40] [Epoch 1/1] step 10550/27037 | loss 3.1508 (task=0.757 hzd=2.394) | lr 1.43e-05 | DriveLM 1/2
+  [21:08:12] [Epoch 1/1] step 10600/27037 | loss 3.1490 (task=0.756 hzd=2.393) | lr 1.43e-05 | DriveLM 0/2
+  [21:13:44] [Epoch 1/1] step 10650/27037 | loss 3.1474 (task=0.755 hzd=2.392) | lr 1.42e-05 | DriveLM 2/2
+  [21:19:16] [Epoch 1/1] step 10700/27037 | loss 3.1455 (task=0.754 hzd=2.391) | lr 1.41e-05 | DriveLM 1/2
+  [21:24:49] [Epoch 1/1] step 10750/27037 | loss 3.1438 (task=0.753 hzd=2.390) | lr 1.41e-05 | DriveLM 1/2
+  [21:30:21] [Epoch 1/1] step 10800/27037 | loss 3.1423 (task=0.753 hzd=2.390) | lr 1.40e-05 | DriveLM 0/2
+  [21:35:54] [Epoch 1/1] step 10850/27037 | loss 3.1406 (task=0.752 hzd=2.389) | lr 1.40e-05 | DriveLM 0/2
+  [21:41:26] [Epoch 1/1] step 10900/27037 | loss 3.1389 (task=0.751 hzd=2.388) | lr 1.39e-05 | DriveLM 1/2
+  [21:46:59] [Epoch 1/1] step 10950/27037 | loss 3.1371 (task=0.750 hzd=2.387) | lr 1.39e-05 | DriveLM 1/2
+  [21:52:32] [Epoch 1/1] step 11000/27037 | loss 3.1356 (task=0.749 hzd=2.387) | lr 1.38e-05 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_11000
+  [21:58:06] [Epoch 1/1] step 11050/27037 | loss 3.1340 (task=0.748 hzd=2.386) | lr 1.38e-05 | DriveLM 0/2
+  [22:03:40] [Epoch 1/1] step 11100/27037 | loss 3.1324 (task=0.747 hzd=2.385) | lr 1.37e-05 | DriveLM 0/2
+  [22:09:13] [Epoch 1/1] step 11150/27037 | loss 3.1309 (task=0.747 hzd=2.384) | lr 1.36e-05 | DriveLM 0/2
+  [22:14:46] [Epoch 1/1] step 11200/27037 | loss 3.1292 (task=0.746 hzd=2.384) | lr 1.36e-05 | DriveLM 1/2
+  [22:20:19] [Epoch 1/1] step 11250/27037 | loss 3.1279 (task=0.745 hzd=2.383) | lr 1.35e-05 | DriveLM 0/2
+  [22:25:52] [Epoch 1/1] step 11300/27037 | loss 3.1260 (task=0.744 hzd=2.382) | lr 1.35e-05 | DriveLM 0/2
+  [22:31:25] [Epoch 1/1] step 11350/27037 | loss 3.1245 (task=0.743 hzd=2.381) | lr 1.34e-05 | DriveLM 0/2
+  [22:36:59] [Epoch 1/1] step 11400/27037 | loss 3.1230 (task=0.742 hzd=2.381) | lr 1.34e-05 | DriveLM 1/2
+  [22:42:32] [Epoch 1/1] step 11450/27037 | loss 3.1216 (task=0.742 hzd=2.380) | lr 1.33e-05 | DriveLM 1/2
+  [22:48:06] [Epoch 1/1] step 11500/27037 | loss 3.1202 (task=0.741 hzd=2.379) | lr 1.32e-05 | DriveLM 1/2
+  [22:53:39] [Epoch 1/1] step 11550/27037 | loss 3.1187 (task=0.740 hzd=2.379) | lr 1.32e-05 | DriveLM 1/2
+  [22:59:12] [Epoch 1/1] step 11600/27037 | loss 3.1174 (task=0.740 hzd=2.378) | lr 1.31e-05 | DriveLM 1/2
+  [23:04:46] [Epoch 1/1] step 11650/27037 | loss 3.1160 (task=0.739 hzd=2.377) | lr 1.31e-05 | DriveLM 0/2
+  [23:10:19] [Epoch 1/1] step 11700/27037 | loss 3.1143 (task=0.738 hzd=2.376) | lr 1.30e-05 | DriveLM 1/2
+  [23:15:52] [Epoch 1/1] step 11750/27037 | loss 3.1130 (task=0.737 hzd=2.376) | lr 1.29e-05 | DriveLM 1/2
+  [23:21:26] [Epoch 1/1] step 11800/27037 | loss 3.1118 (task=0.737 hzd=2.375) | lr 1.29e-05 | DriveLM 1/2
+  [23:27:00] [Epoch 1/1] step 11850/27037 | loss 3.1101 (task=0.736 hzd=2.374) | lr 1.28e-05 | DriveLM 2/2
+  [23:32:33] [Epoch 1/1] step 11900/27037 | loss 3.1089 (task=0.735 hzd=2.374) | lr 1.28e-05 | DriveLM 0/2
+  [23:38:07] [Epoch 1/1] step 11950/27037 | loss 3.1074 (task=0.734 hzd=2.373) | lr 1.27e-05 | DriveLM 1/2
+  [23:43:41] [Epoch 1/1] step 12000/27037 | loss 3.1059 (task=0.734 hzd=2.372) | lr 1.27e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_12000
+  [23:49:16] [Epoch 1/1] step 12050/27037 | loss 3.1044 (task=0.733 hzd=2.372) | lr 1.26e-05 | DriveLM 1/2
+  [23:54:50] [Epoch 1/1] step 12100/27037 | loss 3.1031 (task=0.732 hzd=2.371) | lr 1.25e-05 | DriveLM 1/2
+  [00:00:24] [Epoch 1/1] step 12150/27037 | loss 3.1017 (task=0.732 hzd=2.370) | lr 1.25e-05 | DriveLM 0/2
+  [00:05:58] [Epoch 1/1] step 12200/27037 | loss 3.1001 (task=0.731 hzd=2.369) | lr 1.24e-05 | DriveLM 2/2
+  [00:11:32] [Epoch 1/1] step 12250/27037 | loss 3.0986 (task=0.730 hzd=2.369) | lr 1.24e-05 | DriveLM 2/2
+  [00:17:06] [Epoch 1/1] step 12300/27037 | loss 3.0973 (task=0.729 hzd=2.368) | lr 1.23e-05 | DriveLM 1/2
+  [00:22:40] [Epoch 1/1] step 12350/27037 | loss 3.0960 (task=0.729 hzd=2.368) | lr 1.22e-05 | DriveLM 0/2
+  [00:28:15] [Epoch 1/1] step 12400/27037 | loss 3.0947 (task=0.728 hzd=2.367) | lr 1.22e-05 | DriveLM 2/2
+  [00:33:51] [Epoch 1/1] step 12450/27037 | loss 3.0934 (task=0.727 hzd=2.366) | lr 1.21e-05 | DriveLM 1/2
+  [00:39:27] [Epoch 1/1] step 12500/27037 | loss 3.0923 (task=0.727 hzd=2.366) | lr 1.21e-05 | DriveLM 2/2
+  [00:45:03] [Epoch 1/1] step 12550/27037 | loss 3.0910 (task=0.726 hzd=2.365) | lr 1.20e-05 | DriveLM 1/2
+  [00:50:39] [Epoch 1/1] step 12600/27037 | loss 3.0895 (task=0.725 hzd=2.364) | lr 1.19e-05 | DriveLM 1/2
+  [00:56:15] [Epoch 1/1] step 12650/27037 | loss 3.0881 (task=0.724 hzd=2.364) | lr 1.19e-05 | DriveLM 1/2
+  [01:01:52] [Epoch 1/1] step 12700/27037 | loss 3.0867 (task=0.724 hzd=2.363) | lr 1.18e-05 | DriveLM 0/2
+  [01:07:28] [Epoch 1/1] step 12750/27037 | loss 3.0853 (task=0.723 hzd=2.362) | lr 1.18e-05 | DriveLM 1/2
+  [01:13:04] [Epoch 1/1] step 12800/27037 | loss 3.0837 (task=0.722 hzd=2.362) | lr 1.17e-05 | DriveLM 0/2
+  [01:18:40] [Epoch 1/1] step 12850/27037 | loss 3.0824 (task=0.721 hzd=2.361) | lr 1.16e-05 | DriveLM 1/2
+  [01:24:17] [Epoch 1/1] step 12900/27037 | loss 3.0811 (task=0.720 hzd=2.361) | lr 1.16e-05 | DriveLM 1/2
+  [01:29:53] [Epoch 1/1] step 12950/27037 | loss 3.0799 (task=0.720 hzd=2.360) | lr 1.15e-05 | DriveLM 2/2
+  [01:35:29] [Epoch 1/1] step 13000/27037 | loss 3.0786 (task=0.719 hzd=2.359) | lr 1.15e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_13000
+  [01:41:05] [Epoch 1/1] step 13050/27037 | loss 3.0773 (task=0.718 hzd=2.359) | lr 1.14e-05 | DriveLM 1/2
+  [01:46:39] [Epoch 1/1] step 13100/27037 | loss 3.0760 (task=0.718 hzd=2.358) | lr 1.13e-05 | DriveLM 1/2
+  [01:52:15] [Epoch 1/1] step 13150/27037 | loss 3.0748 (task=0.717 hzd=2.358) | lr 1.13e-05 | DriveLM 2/2
+  [01:57:51] [Epoch 1/1] step 13200/27037 | loss 3.0733 (task=0.716 hzd=2.357) | lr 1.12e-05 | DriveLM 0/2
+  [02:03:27] [Epoch 1/1] step 13250/27037 | loss 3.0722 (task=0.716 hzd=2.357) | lr 1.12e-05 | DriveLM 0/2
+  [02:09:00] [Epoch 1/1] step 13300/27037 | loss 3.0711 (task=0.715 hzd=2.356) | lr 1.11e-05 | DriveLM 2/2
+  [02:14:35] [Epoch 1/1] step 13350/27037 | loss 3.0698 (task=0.714 hzd=2.355) | lr 1.10e-05 | DriveLM 0/2
+  [02:20:08] [Epoch 1/1] step 13400/27037 | loss 3.0687 (task=0.714 hzd=2.355) | lr 1.10e-05 | DriveLM 1/2
+  [02:25:42] [Epoch 1/1] step 13450/27037 | loss 3.0676 (task=0.713 hzd=2.354) | lr 1.09e-05 | DriveLM 0/2
+  [02:31:15] [Epoch 1/1] step 13500/27037 | loss 3.0664 (task=0.713 hzd=2.354) | lr 1.08e-05 | DriveLM 1/2
+  [02:36:48] [Epoch 1/1] step 13550/27037 | loss 3.0651 (task=0.712 hzd=2.353) | lr 1.08e-05 | DriveLM 0/2
+  [02:42:22] [Epoch 1/1] step 13600/27037 | loss 3.0640 (task=0.711 hzd=2.353) | lr 1.07e-05 | DriveLM 1/2
+  [02:47:56] [Epoch 1/1] step 13650/27037 | loss 3.0629 (task=0.711 hzd=2.352) | lr 1.07e-05 | DriveLM 1/2
+  [02:53:30] [Epoch 1/1] step 13700/27037 | loss 3.0616 (task=0.710 hzd=2.352) | lr 1.06e-05 | DriveLM 1/2
+  [02:59:05] [Epoch 1/1] step 13750/27037 | loss 3.0605 (task=0.709 hzd=2.351) | lr 1.05e-05 | DriveLM 1/2
+  [03:04:40] [Epoch 1/1] step 13800/27037 | loss 3.0594 (task=0.709 hzd=2.351) | lr 1.05e-05 | DriveLM 1/2
+  [03:10:16] [Epoch 1/1] step 13850/27037 | loss 3.0584 (task=0.708 hzd=2.350) | lr 1.04e-05 | DriveLM 0/2
+  [03:15:52] [Epoch 1/1] step 13900/27037 | loss 3.0572 (task=0.708 hzd=2.350) | lr 1.04e-05 | DriveLM 0/2
+  [03:21:28] [Epoch 1/1] step 13950/27037 | loss 3.0561 (task=0.707 hzd=2.349) | lr 1.03e-05 | DriveLM 0/2
+  [03:27:05] [Epoch 1/1] step 14000/27037 | loss 3.0548 (task=0.706 hzd=2.349) | lr 1.02e-05 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_14000
+  [03:32:43] [Epoch 1/1] step 14050/27037 | loss 3.0538 (task=0.706 hzd=2.348) | lr 1.02e-05 | DriveLM 2/2
+  [03:38:19] [Epoch 1/1] step 14100/27037 | loss 3.0527 (task=0.705 hzd=2.348) | lr 1.01e-05 | DriveLM 0/2
+  [03:43:55] [Epoch 1/1] step 14150/27037 | loss 3.0517 (task=0.705 hzd=2.347) | lr 1.01e-05 | DriveLM 1/2
+  [03:49:32] [Epoch 1/1] step 14200/27037 | loss 3.0505 (task=0.704 hzd=2.346) | lr 9.99e-06 | DriveLM 0/2
+  [03:55:09] [Epoch 1/1] step 14250/27037 | loss 3.0495 (task=0.704 hzd=2.346) | lr 9.93e-06 | DriveLM 1/2
+  [04:00:45] [Epoch 1/1] step 14300/27037 | loss 3.0485 (task=0.703 hzd=2.345) | lr 9.87e-06 | DriveLM 0/2
+  [04:06:21] [Epoch 1/1] step 14350/27037 | loss 3.0472 (task=0.702 hzd=2.345) | lr 9.81e-06 | DriveLM 0/2
+  [04:11:57] [Epoch 1/1] step 14400/27037 | loss 3.0461 (task=0.702 hzd=2.344) | lr 9.75e-06 | DriveLM 2/2
+  [04:17:34] [Epoch 1/1] step 14450/27037 | loss 3.0449 (task=0.701 hzd=2.344) | lr 9.69e-06 | DriveLM 0/2
+  [04:23:09] [Epoch 1/1] step 14500/27037 | loss 3.0437 (task=0.700 hzd=2.344) | lr 9.63e-06 | DriveLM 1/2
+  [04:28:51] [Epoch 1/1] step 14550/27037 | loss 3.0426 (task=0.700 hzd=2.343) | lr 9.56e-06 | DriveLM 1/2
+  [04:34:27] [Epoch 1/1] step 14600/27037 | loss 3.0415 (task=0.699 hzd=2.343) | lr 9.50e-06 | DriveLM 1/2
+  [04:40:02] [Epoch 1/1] step 14650/27037 | loss 3.0404 (task=0.698 hzd=2.342) | lr 9.44e-06 | DriveLM 1/2
+  [04:45:37] [Epoch 1/1] step 14700/27037 | loss 3.0393 (task=0.698 hzd=2.342) | lr 9.38e-06 | DriveLM 1/2
+  [04:51:13] [Epoch 1/1] step 14750/27037 | loss 3.0383 (task=0.697 hzd=2.341) | lr 9.32e-06 | DriveLM 1/2
+  [04:56:49] [Epoch 1/1] step 14800/27037 | loss 3.0372 (task=0.696 hzd=2.341) | lr 9.26e-06 | DriveLM 1/2
+  [05:02:24] [Epoch 1/1] step 14850/27037 | loss 3.0362 (task=0.696 hzd=2.340) | lr 9.20e-06 | DriveLM 2/2
+  [05:07:59] [Epoch 1/1] step 14900/27037 | loss 3.0352 (task=0.695 hzd=2.340) | lr 9.14e-06 | DriveLM 1/2
+  [05:13:35] [Epoch 1/1] step 14950/27037 | loss 3.0342 (task=0.695 hzd=2.339) | lr 9.08e-06 | DriveLM 0/2
+  [05:19:11] [Epoch 1/1] step 15000/27037 | loss 3.0333 (task=0.694 hzd=2.339) | lr 9.02e-06 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_15000
+  [05:24:48] [Epoch 1/1] step 15050/27037 | loss 3.0321 (task=0.694 hzd=2.338) | lr 8.95e-06 | DriveLM 1/2
+  [05:30:24] [Epoch 1/1] step 15100/27037 | loss 3.0310 (task=0.693 hzd=2.338) | lr 8.89e-06 | DriveLM 0/2
+  [05:36:00] [Epoch 1/1] step 15150/27037 | loss 3.0300 (task=0.692 hzd=2.338) | lr 8.83e-06 | DriveLM 0/2
+  [05:41:36] [Epoch 1/1] step 15200/27037 | loss 3.0290 (task=0.692 hzd=2.337) | lr 8.77e-06 | DriveLM 2/2
+  [05:47:13] [Epoch 1/1] step 15250/27037 | loss 3.0279 (task=0.691 hzd=2.337) | lr 8.71e-06 | DriveLM 0/2
+  [05:52:49] [Epoch 1/1] step 15300/27037 | loss 3.0268 (task=0.691 hzd=2.336) | lr 8.65e-06 | DriveLM 1/2
+  [05:58:25] [Epoch 1/1] step 15350/27037 | loss 3.0259 (task=0.690 hzd=2.336) | lr 8.59e-06 | DriveLM 2/2
+  [06:04:02] [Epoch 1/1] step 15400/27037 | loss 3.0249 (task=0.690 hzd=2.335) | lr 8.53e-06 | DriveLM 0/2
+  [06:09:38] [Epoch 1/1] step 15450/27037 | loss 3.0239 (task=0.689 hzd=2.335) | lr 8.47e-06 | DriveLM 1/2
+  [06:15:14] [Epoch 1/1] step 15500/27037 | loss 3.0229 (task=0.689 hzd=2.334) | lr 8.41e-06 | DriveLM 1/2
+  [06:20:50] [Epoch 1/1] step 15550/27037 | loss 3.0219 (task=0.688 hzd=2.334) | lr 8.35e-06 | DriveLM 1/2
+  [06:26:26] [Epoch 1/1] step 15600/27037 | loss 3.0211 (task=0.688 hzd=2.334) | lr 8.29e-06 | DriveLM 1/2
+  [06:32:02] [Epoch 1/1] step 15650/27037 | loss 3.0200 (task=0.687 hzd=2.333) | lr 8.23e-06 | DriveLM 1/2
+  [06:37:37] [Epoch 1/1] step 15700/27037 | loss 3.0191 (task=0.686 hzd=2.333) | lr 8.17e-06 | DriveLM 0/2
+  [06:43:13] [Epoch 1/1] step 15750/27037 | loss 3.0181 (task=0.686 hzd=2.332) | lr 8.11e-06 | DriveLM 1/2
+  [06:48:48] [Epoch 1/1] step 15800/27037 | loss 3.0173 (task=0.685 hzd=2.332) | lr 8.05e-06 | DriveLM 2/2
+  [06:54:24] [Epoch 1/1] step 15850/27037 | loss 3.0163 (task=0.685 hzd=2.331) | lr 7.99e-06 | DriveLM 1/2
+  [06:59:59] [Epoch 1/1] step 15900/27037 | loss 3.0153 (task=0.684 hzd=2.331) | lr 7.93e-06 | DriveLM 0/2
+  [07:05:34] [Epoch 1/1] step 15950/27037 | loss 3.0144 (task=0.684 hzd=2.331) | lr 7.87e-06 | DriveLM 0/2
+  [07:11:09] [Epoch 1/1] step 16000/27037 | loss 3.0136 (task=0.683 hzd=2.330) | lr 7.81e-06 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_16000
+  [07:16:45] [Epoch 1/1] step 16050/27037 | loss 3.0127 (task=0.683 hzd=2.330) | lr 7.75e-06 | DriveLM 0/2
+  [07:22:21] [Epoch 1/1] step 16100/27037 | loss 3.0119 (task=0.682 hzd=2.330) | lr 7.69e-06 | DriveLM 0/2
+  [07:27:57] [Epoch 1/1] step 16150/27037 | loss 3.0108 (task=0.682 hzd=2.329) | lr 7.63e-06 | DriveLM 1/2
+  [07:33:32] [Epoch 1/1] step 16200/27037 | loss 3.0099 (task=0.681 hzd=2.329) | lr 7.57e-06 | DriveLM 0/2
+  [07:39:07] [Epoch 1/1] step 16250/27037 | loss 3.0088 (task=0.681 hzd=2.328) | lr 7.51e-06 | DriveLM 0/2
+  [07:44:43] [Epoch 1/1] step 16300/27037 | loss 3.0080 (task=0.680 hzd=2.328) | lr 7.45e-06 | DriveLM 1/2
+  [07:50:19] [Epoch 1/1] step 16350/27037 | loss 3.0070 (task=0.680 hzd=2.327) | lr 7.39e-06 | DriveLM 0/2
+  [07:55:55] [Epoch 1/1] step 16400/27037 | loss 3.0062 (task=0.679 hzd=2.327) | lr 7.33e-06 | DriveLM 0/2
+  [08:01:31] [Epoch 1/1] step 16450/27037 | loss 3.0051 (task=0.679 hzd=2.327) | lr 7.28e-06 | DriveLM 2/2
+  [08:07:07] [Epoch 1/1] step 16500/27037 | loss 3.0042 (task=0.678 hzd=2.326) | lr 7.22e-06 | DriveLM 0/2
+  [08:12:43] [Epoch 1/1] step 16550/27037 | loss 3.0034 (task=0.678 hzd=2.326) | lr 7.16e-06 | DriveLM 0/2
+  [08:18:19] [Epoch 1/1] step 16600/27037 | loss 3.0024 (task=0.677 hzd=2.325) | lr 7.10e-06 | DriveLM 1/2
+  [08:23:54] [Epoch 1/1] step 16650/27037 | loss 3.0014 (task=0.677 hzd=2.325) | lr 7.04e-06 | DriveLM 2/2
+  [08:29:30] [Epoch 1/1] step 16700/27037 | loss 3.0005 (task=0.676 hzd=2.325) | lr 6.98e-06 | DriveLM 1/2
+  [08:35:10] [Epoch 1/1] step 16750/27037 | loss 2.9998 (task=0.676 hzd=2.324) | lr 6.92e-06 | DriveLM 0/2
+  [08:40:45] [Epoch 1/1] step 16800/27037 | loss 2.9989 (task=0.675 hzd=2.324) | lr 6.87e-06 | DriveLM 1/2
+  [08:46:20] [Epoch 1/1] step 16850/27037 | loss 2.9979 (task=0.675 hzd=2.323) | lr 6.81e-06 | DriveLM 2/2
+  [08:51:54] [Epoch 1/1] step 16900/27037 | loss 2.9971 (task=0.674 hzd=2.323) | lr 6.75e-06 | DriveLM 2/2
+  [08:57:26] [Epoch 1/1] step 16950/27037 | loss 2.9963 (task=0.674 hzd=2.323) | lr 6.69e-06 | DriveLM 0/2
+  [09:02:59] [Epoch 1/1] step 17000/27037 | loss 2.9957 (task=0.673 hzd=2.322) | lr 6.64e-06 | DriveLM 2/2
+  체크포인트 저장: checkpoints/student_distill_2/step_17000
+  [09:08:34] [Epoch 1/1] step 17050/27037 | loss 2.9949 (task=0.673 hzd=2.322) | lr 6.58e-06 | DriveLM 2/2
+  [09:14:07] [Epoch 1/1] step 17100/27037 | loss 2.9940 (task=0.672 hzd=2.322) | lr 6.52e-06 | DriveLM 0/2
+  [09:19:39] [Epoch 1/1] step 17150/27037 | loss 2.9932 (task=0.672 hzd=2.321) | lr 6.46e-06 | DriveLM 2/2
+  [09:25:12] [Epoch 1/1] step 17200/27037 | loss 2.9925 (task=0.672 hzd=2.321) | lr 6.41e-06 | DriveLM 1/2
+  [09:30:44] [Epoch 1/1] step 17250/27037 | loss 2.9918 (task=0.671 hzd=2.320) | lr 6.35e-06 | DriveLM 2/2
+  [09:36:17] [Epoch 1/1] step 17300/27037 | loss 2.9908 (task=0.671 hzd=2.320) | lr 6.29e-06 | DriveLM 1/2
+  [09:41:49] [Epoch 1/1] step 17350/27037 | loss 2.9899 (task=0.670 hzd=2.320) | lr 6.24e-06 | DriveLM 1/2
+  [09:47:22] [Epoch 1/1] step 17400/27037 | loss 2.9892 (task=0.670 hzd=2.319) | lr 6.18e-06 | DriveLM 0/2
+  [09:52:54] [Epoch 1/1] step 17450/27037 | loss 2.9883 (task=0.669 hzd=2.319) | lr 6.12e-06 | DriveLM 0/2
+  [09:58:27] [Epoch 1/1] step 17500/27037 | loss 2.9874 (task=0.669 hzd=2.319) | lr 6.07e-06 | DriveLM 1/2
+  [10:04:00] [Epoch 1/1] step 17550/27037 | loss 2.9865 (task=0.668 hzd=2.318) | lr 6.01e-06 | DriveLM 2/2
+  [10:09:33] [Epoch 1/1] step 17600/27037 | loss 2.9856 (task=0.668 hzd=2.318) | lr 5.95e-06 | DriveLM 2/2
+  [10:15:07] [Epoch 1/1] step 17650/27037 | loss 2.9848 (task=0.667 hzd=2.318) | lr 5.90e-06 | DriveLM 1/2
+  [10:20:40] [Epoch 1/1] step 17700/27037 | loss 2.9841 (task=0.667 hzd=2.317) | lr 5.84e-06 | DriveLM 1/2
+  [10:26:13] [Epoch 1/1] step 17750/27037 | loss 2.9833 (task=0.666 hzd=2.317) | lr 5.79e-06 | DriveLM 1/2
+  [10:31:46] [Epoch 1/1] step 17800/27037 | loss 2.9825 (task=0.666 hzd=2.317) | lr 5.73e-06 | DriveLM 1/2
+  [10:37:18] [Epoch 1/1] step 17850/27037 | loss 2.9816 (task=0.665 hzd=2.316) | lr 5.68e-06 | DriveLM 0/2
+  [10:42:53] [Epoch 1/1] step 17900/27037 | loss 2.9807 (task=0.665 hzd=2.316) | lr 5.62e-06 | DriveLM 0/2
+  [10:48:26] [Epoch 1/1] step 17950/27037 | loss 2.9798 (task=0.664 hzd=2.316) | lr 5.57e-06 | DriveLM 1/2
+  [10:53:59] [Epoch 1/1] step 18000/27037 | loss 2.9791 (task=0.664 hzd=2.315) | lr 5.51e-06 | DriveLM 2/2
+  체크포인트 저장: checkpoints/student_distill_2/step_18000
+  [10:59:33] [Epoch 1/1] step 18050/27037 | loss 2.9782 (task=0.663 hzd=2.315) | lr 5.46e-06 | DriveLM 1/2
+  [11:05:05] [Epoch 1/1] step 18100/27037 | loss 2.9774 (task=0.663 hzd=2.315) | lr 5.40e-06 | DriveLM 1/2
+  [11:10:38] [Epoch 1/1] step 18150/27037 | loss 2.9768 (task=0.663 hzd=2.314) | lr 5.35e-06 | DriveLM 1/2
+  [11:16:11] [Epoch 1/1] step 18200/27037 | loss 2.9760 (task=0.662 hzd=2.314) | lr 5.29e-06 | DriveLM 1/2
+  [11:21:43] [Epoch 1/1] step 18250/27037 | loss 2.9753 (task=0.662 hzd=2.314) | lr 5.24e-06 | DriveLM 2/2
+  [11:27:16] [Epoch 1/1] step 18300/27037 | loss 2.9746 (task=0.661 hzd=2.313) | lr 5.19e-06 | DriveLM 0/2
+  [11:32:48] [Epoch 1/1] step 18350/27037 | loss 2.9739 (task=0.661 hzd=2.313) | lr 5.13e-06 | DriveLM 0/2
+  [11:38:20] [Epoch 1/1] step 18400/27037 | loss 2.9731 (task=0.660 hzd=2.313) | lr 5.08e-06 | DriveLM 2/2
+  [11:43:52] [Epoch 1/1] step 18450/27037 | loss 2.9723 (task=0.660 hzd=2.312) | lr 5.03e-06 | DriveLM 1/2
+  [11:49:25] [Epoch 1/1] step 18500/27037 | loss 2.9714 (task=0.659 hzd=2.312) | lr 4.97e-06 | DriveLM 1/2
+  [11:54:58] [Epoch 1/1] step 18550/27037 | loss 2.9708 (task=0.659 hzd=2.312) | lr 4.92e-06 | DriveLM 2/2
+  [12:00:30] [Epoch 1/1] step 18600/27037 | loss 2.9700 (task=0.659 hzd=2.311) | lr 4.87e-06 | DriveLM 1/2
+  [12:06:02] [Epoch 1/1] step 18650/27037 | loss 2.9692 (task=0.658 hzd=2.311) | lr 4.82e-06 | DriveLM 1/2
+  [12:11:35] [Epoch 1/1] step 18700/27037 | loss 2.9686 (task=0.658 hzd=2.311) | lr 4.76e-06 | DriveLM 1/2
+  [12:17:07] [Epoch 1/1] step 18750/27037 | loss 2.9679 (task=0.657 hzd=2.310) | lr 4.71e-06 | DriveLM 1/2
+  [12:22:39] [Epoch 1/1] step 18800/27037 | loss 2.9672 (task=0.657 hzd=2.310) | lr 4.66e-06 | DriveLM 1/2
+  [12:28:12] [Epoch 1/1] step 18850/27037 | loss 2.9665 (task=0.657 hzd=2.310) | lr 4.61e-06 | DriveLM 2/2
+  [12:33:45] [Epoch 1/1] step 18900/27037 | loss 2.9657 (task=0.656 hzd=2.310) | lr 4.56e-06 | DriveLM 1/2
+  [12:39:17] [Epoch 1/1] step 18950/27037 | loss 2.9650 (task=0.656 hzd=2.309) | lr 4.51e-06 | DriveLM 1/2
+  [12:44:50] [Epoch 1/1] step 19000/27037 | loss 2.9644 (task=0.655 hzd=2.309) | lr 4.45e-06 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_19000
+  [12:50:24] [Epoch 1/1] step 19050/27037 | loss 2.9636 (task=0.655 hzd=2.309) | lr 4.40e-06 | DriveLM 0/2
+  [12:55:56] [Epoch 1/1] step 19100/27037 | loss 2.9630 (task=0.655 hzd=2.308) | lr 4.35e-06 | DriveLM 2/2
+  [13:01:29] [Epoch 1/1] step 19150/27037 | loss 2.9622 (task=0.654 hzd=2.308) | lr 4.30e-06 | DriveLM 1/2
+  [13:07:01] [Epoch 1/1] step 19200/27037 | loss 2.9615 (task=0.654 hzd=2.308) | lr 4.25e-06 | DriveLM 1/2
+  [13:12:34] [Epoch 1/1] step 19250/27037 | loss 2.9607 (task=0.653 hzd=2.308) | lr 4.20e-06 | DriveLM 0/2
+  [13:18:06] [Epoch 1/1] step 19300/27037 | loss 2.9599 (task=0.653 hzd=2.307) | lr 4.15e-06 | DriveLM 2/2
+  [13:23:39] [Epoch 1/1] step 19350/27037 | loss 2.9591 (task=0.652 hzd=2.307) | lr 4.10e-06 | DriveLM 0/2
+  [13:29:11] [Epoch 1/1] step 19400/27037 | loss 2.9583 (task=0.652 hzd=2.307) | lr 4.05e-06 | DriveLM 1/2
+  [13:34:44] [Epoch 1/1] step 19450/27037 | loss 2.9576 (task=0.651 hzd=2.306) | lr 4.01e-06 | DriveLM 1/2
+  [13:40:16] [Epoch 1/1] step 19500/27037 | loss 2.9569 (task=0.651 hzd=2.306) | lr 3.96e-06 | DriveLM 1/2
+  [13:45:49] [Epoch 1/1] step 19550/27037 | loss 2.9561 (task=0.650 hzd=2.306) | lr 3.91e-06 | DriveLM 0/2
+  [13:51:22] [Epoch 1/1] step 19600/27037 | loss 2.9553 (task=0.650 hzd=2.305) | lr 3.86e-06 | DriveLM 1/2
+  [13:56:54] [Epoch 1/1] step 19650/27037 | loss 2.9546 (task=0.649 hzd=2.305) | lr 3.81e-06 | DriveLM 0/2
+  [14:02:27] [Epoch 1/1] step 19700/27037 | loss 2.9539 (task=0.649 hzd=2.305) | lr 3.76e-06 | DriveLM 1/2
+  [14:07:59] [Epoch 1/1] step 19750/27037 | loss 2.9533 (task=0.649 hzd=2.305) | lr 3.72e-06 | DriveLM 0/2
+  [14:13:31] [Epoch 1/1] step 19800/27037 | loss 2.9526 (task=0.648 hzd=2.304) | lr 3.67e-06 | DriveLM 2/2
+  [14:19:03] [Epoch 1/1] step 19850/27037 | loss 2.9519 (task=0.648 hzd=2.304) | lr 3.62e-06 | DriveLM 0/2
+  [14:24:36] [Epoch 1/1] step 19900/27037 | loss 2.9512 (task=0.647 hzd=2.304) | lr 3.57e-06 | DriveLM 2/2
+  [14:30:08] [Epoch 1/1] step 19950/27037 | loss 2.9505 (task=0.647 hzd=2.304) | lr 3.53e-06 | DriveLM 1/2
+  [14:35:40] [Epoch 1/1] step 20000/27037 | loss 2.9498 (task=0.646 hzd=2.303) | lr 3.48e-06 | DriveLM 2/2
+  체크포인트 저장: checkpoints/student_distill_2/step_20000
+  [14:41:21] [Epoch 1/1] step 20050/27037 | loss 2.9493 (task=0.646 hzd=2.303) | lr 3.43e-06 | DriveLM 1/2
+  [14:46:53] [Epoch 1/1] step 20100/27037 | loss 2.9485 (task=0.646 hzd=2.303) | lr 3.39e-06 | DriveLM 2/2
+  [14:52:25] [Epoch 1/1] step 20150/27037 | loss 2.9479 (task=0.645 hzd=2.303) | lr 3.34e-06 | DriveLM 2/2
+  [14:57:58] [Epoch 1/1] step 20200/27037 | loss 2.9472 (task=0.645 hzd=2.302) | lr 3.30e-06 | DriveLM 2/2
+  [15:03:30] [Epoch 1/1] step 20250/27037 | loss 2.9465 (task=0.644 hzd=2.302) | lr 3.25e-06 | DriveLM 0/2
+  [15:09:03] [Epoch 1/1] step 20300/27037 | loss 2.9458 (task=0.644 hzd=2.302) | lr 3.21e-06 | DriveLM 1/2
+  [15:14:35] [Epoch 1/1] step 20350/27037 | loss 2.9450 (task=0.644 hzd=2.301) | lr 3.16e-06 | DriveLM 0/2
+  [15:20:07] [Epoch 1/1] step 20400/27037 | loss 2.9443 (task=0.643 hzd=2.301) | lr 3.12e-06 | DriveLM 1/2
+  [15:25:40] [Epoch 1/1] step 20450/27037 | loss 2.9436 (task=0.643 hzd=2.301) | lr 3.07e-06 | DriveLM 1/2
+  [15:31:12] [Epoch 1/1] step 20500/27037 | loss 2.9430 (task=0.642 hzd=2.301) | lr 3.03e-06 | DriveLM 1/2
+  [15:36:44] [Epoch 1/1] step 20550/27037 | loss 2.9425 (task=0.642 hzd=2.300) | lr 2.99e-06 | DriveLM 2/2
+  [15:42:18] [Epoch 1/1] step 20600/27037 | loss 2.9419 (task=0.642 hzd=2.300) | lr 2.94e-06 | DriveLM 0/2
+  [15:47:50] [Epoch 1/1] step 20650/27037 | loss 2.9413 (task=0.641 hzd=2.300) | lr 2.90e-06 | DriveLM 0/2
+  [15:53:22] [Epoch 1/1] step 20700/27037 | loss 2.9406 (task=0.641 hzd=2.300) | lr 2.86e-06 | DriveLM 1/2
+  [15:58:55] [Epoch 1/1] step 20750/27037 | loss 2.9400 (task=0.640 hzd=2.299) | lr 2.81e-06 | DriveLM 2/2
+  [16:04:28] [Epoch 1/1] step 20800/27037 | loss 2.9394 (task=0.640 hzd=2.299) | lr 2.77e-06 | DriveLM 0/2
+  [16:10:00] [Epoch 1/1] step 20850/27037 | loss 2.9387 (task=0.640 hzd=2.299) | lr 2.73e-06 | DriveLM 0/2
+  [16:15:32] [Epoch 1/1] step 20900/27037 | loss 2.9380 (task=0.639 hzd=2.299) | lr 2.69e-06 | DriveLM 1/2
+  [16:21:04] [Epoch 1/1] step 20950/27037 | loss 2.9372 (task=0.639 hzd=2.298) | lr 2.65e-06 | DriveLM 0/2
+  [16:26:36] [Epoch 1/1] step 21000/27037 | loss 2.9366 (task=0.638 hzd=2.298) | lr 2.60e-06 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_21000
+  [16:32:10] [Epoch 1/1] step 21050/27037 | loss 2.9358 (task=0.638 hzd=2.298) | lr 2.56e-06 | DriveLM 1/2
+  [16:37:42] [Epoch 1/1] step 21100/27037 | loss 2.9353 (task=0.638 hzd=2.298) | lr 2.52e-06 | DriveLM 0/2
+  [16:43:15] [Epoch 1/1] step 21150/27037 | loss 2.9348 (task=0.637 hzd=2.297) | lr 2.48e-06 | DriveLM 2/2
+  [16:48:47] [Epoch 1/1] step 21200/27037 | loss 2.9342 (task=0.637 hzd=2.297) | lr 2.44e-06 | DriveLM 0/2
+  [16:54:20] [Epoch 1/1] step 21250/27037 | loss 2.9336 (task=0.637 hzd=2.297) | lr 2.40e-06 | DriveLM 0/2
+  [16:59:52] [Epoch 1/1] step 21300/27037 | loss 2.9331 (task=0.636 hzd=2.297) | lr 2.36e-06 | DriveLM 1/2
+  [17:05:25] [Epoch 1/1] step 21350/27037 | loss 2.9324 (task=0.636 hzd=2.296) | lr 2.32e-06 | DriveLM 0/2
+  [17:10:57] [Epoch 1/1] step 21400/27037 | loss 2.9317 (task=0.636 hzd=2.296) | lr 2.28e-06 | DriveLM 1/2
+  [17:16:30] [Epoch 1/1] step 21450/27037 | loss 2.9311 (task=0.635 hzd=2.296) | lr 2.25e-06 | DriveLM 0/2
+  [17:22:03] [Epoch 1/1] step 21500/27037 | loss 2.9305 (task=0.635 hzd=2.296) | lr 2.21e-06 | DriveLM 1/2
+  [17:27:35] [Epoch 1/1] step 21550/27037 | loss 2.9299 (task=0.634 hzd=2.295) | lr 2.17e-06 | DriveLM 1/2
+  [17:33:08] [Epoch 1/1] step 21600/27037 | loss 2.9293 (task=0.634 hzd=2.295) | lr 2.13e-06 | DriveLM 1/2
+  [17:38:41] [Epoch 1/1] step 21650/27037 | loss 2.9288 (task=0.634 hzd=2.295) | lr 2.09e-06 | DriveLM 0/2
+  [17:44:13] [Epoch 1/1] step 21700/27037 | loss 2.9282 (task=0.633 hzd=2.295) | lr 2.06e-06 | DriveLM 2/2
+  [17:49:46] [Epoch 1/1] step 21750/27037 | loss 2.9276 (task=0.633 hzd=2.295) | lr 2.02e-06 | DriveLM 1/2
+  [17:55:18] [Epoch 1/1] step 21800/27037 | loss 2.9270 (task=0.633 hzd=2.294) | lr 1.98e-06 | DriveLM 2/2
+  [18:00:51] [Epoch 1/1] step 21850/27037 | loss 2.9263 (task=0.632 hzd=2.294) | lr 1.95e-06 | DriveLM 0/2
+  [18:06:24] [Epoch 1/1] step 21900/27037 | loss 2.9257 (task=0.632 hzd=2.294) | lr 1.91e-06 | DriveLM 2/2
+  [18:11:57] [Epoch 1/1] step 21950/27037 | loss 2.9251 (task=0.632 hzd=2.294) | lr 1.87e-06 | DriveLM 1/2
+  [18:17:29] [Epoch 1/1] step 22000/27037 | loss 2.9246 (task=0.631 hzd=2.293) | lr 1.84e-06 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_22000
+  [18:23:02] [Epoch 1/1] step 22050/27037 | loss 2.9241 (task=0.631 hzd=2.293) | lr 1.80e-06 | DriveLM 0/2
+  [18:28:34] [Epoch 1/1] step 22100/27037 | loss 2.9236 (task=0.631 hzd=2.293) | lr 1.77e-06 | DriveLM 1/2
+  [18:34:06] [Epoch 1/1] step 22150/27037 | loss 2.9229 (task=0.630 hzd=2.293) | lr 1.73e-06 | DriveLM 1/2
+  [18:39:39] [Epoch 1/1] step 22200/27037 | loss 2.9224 (task=0.630 hzd=2.293) | lr 1.70e-06 | DriveLM 1/2
+  [18:45:12] [Epoch 1/1] step 22250/27037 | loss 2.9218 (task=0.629 hzd=2.292) | lr 1.67e-06 | DriveLM 0/2
+  [18:50:44] [Epoch 1/1] step 22300/27037 | loss 2.9211 (task=0.629 hzd=2.292) | lr 1.63e-06 | DriveLM 1/2
+  [18:56:16] [Epoch 1/1] step 22350/27037 | loss 2.9206 (task=0.629 hzd=2.292) | lr 1.60e-06 | DriveLM 0/2
+  [19:01:48] [Epoch 1/1] step 22400/27037 | loss 2.9200 (task=0.628 hzd=2.292) | lr 1.57e-06 | DriveLM 1/2
+  [19:07:21] [Epoch 1/1] step 22450/27037 | loss 2.9194 (task=0.628 hzd=2.291) | lr 1.53e-06 | DriveLM 2/2
+  [19:12:53] [Epoch 1/1] step 22500/27037 | loss 2.9189 (task=0.628 hzd=2.291) | lr 1.50e-06 | DriveLM 1/2
+  [19:18:25] [Epoch 1/1] step 22550/27037 | loss 2.9184 (task=0.627 hzd=2.291) | lr 1.47e-06 | DriveLM 0/2
+  [19:23:57] [Epoch 1/1] step 22600/27037 | loss 2.9178 (task=0.627 hzd=2.291) | lr 1.44e-06 | DriveLM 1/2
+  [19:29:29] [Epoch 1/1] step 22650/27037 | loss 2.9172 (task=0.627 hzd=2.290) | lr 1.41e-06 | DriveLM 2/2
+  [19:35:02] [Epoch 1/1] step 22700/27037 | loss 2.9166 (task=0.626 hzd=2.290) | lr 1.37e-06 | DriveLM 1/2
+  [19:40:34] [Epoch 1/1] step 22750/27037 | loss 2.9162 (task=0.626 hzd=2.290) | lr 1.34e-06 | DriveLM 1/2
+  [19:46:06] [Epoch 1/1] step 22800/27037 | loss 2.9157 (task=0.626 hzd=2.290) | lr 1.31e-06 | DriveLM 0/2
+  [19:51:38] [Epoch 1/1] step 22850/27037 | loss 2.9151 (task=0.626 hzd=2.290) | lr 1.28e-06 | DriveLM 0/2
+  [19:57:11] [Epoch 1/1] step 22900/27037 | loss 2.9146 (task=0.625 hzd=2.289) | lr 1.25e-06 | DriveLM 1/2
+  [20:02:44] [Epoch 1/1] step 22950/27037 | loss 2.9140 (task=0.625 hzd=2.289) | lr 1.22e-06 | DriveLM 2/2
+  [20:08:16] [Epoch 1/1] step 23000/27037 | loss 2.9136 (task=0.625 hzd=2.289) | lr 1.19e-06 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_23000
+  [20:13:50] [Epoch 1/1] step 23050/27037 | loss 2.9131 (task=0.624 hzd=2.289) | lr 1.17e-06 | DriveLM 1/2
+  [20:19:22] [Epoch 1/1] step 23100/27037 | loss 2.9126 (task=0.624 hzd=2.289) | lr 1.14e-06 | DriveLM 1/2
+  [20:24:55] [Epoch 1/1] step 23150/27037 | loss 2.9120 (task=0.624 hzd=2.288) | lr 1.11e-06 | DriveLM 0/2
+  [20:30:27] [Epoch 1/1] step 23200/27037 | loss 2.9113 (task=0.623 hzd=2.288) | lr 1.08e-06 | DriveLM 0/2
+  [20:35:59] [Epoch 1/1] step 23250/27037 | loss 2.9106 (task=0.623 hzd=2.288) | lr 1.05e-06 | DriveLM 0/2
+  [20:41:32] [Epoch 1/1] step 23300/27037 | loss 2.9101 (task=0.622 hzd=2.288) | lr 1.03e-06 | DriveLM 0/2
+  [20:47:04] [Epoch 1/1] step 23350/27037 | loss 2.9096 (task=0.622 hzd=2.288) | lr 1.00e-06 | DriveLM 0/2
+  [20:52:36] [Epoch 1/1] step 23400/27037 | loss 2.9089 (task=0.622 hzd=2.287) | lr 9.73e-07 | DriveLM 0/2
+  [20:58:09] [Epoch 1/1] step 23450/27037 | loss 2.9083 (task=0.621 hzd=2.287) | lr 9.47e-07 | DriveLM 0/2
+  [21:03:42] [Epoch 1/1] step 23500/27037 | loss 2.9077 (task=0.621 hzd=2.287) | lr 9.21e-07 | DriveLM 2/2
+  [21:09:14] [Epoch 1/1] step 23550/27037 | loss 2.9072 (task=0.620 hzd=2.287) | lr 8.96e-07 | DriveLM 0/2
+  [21:14:47] [Epoch 1/1] step 23600/27037 | loss 2.9067 (task=0.620 hzd=2.287) | lr 8.71e-07 | DriveLM 2/2
+  [21:20:19] [Epoch 1/1] step 23650/27037 | loss 2.9061 (task=0.620 hzd=2.286) | lr 8.46e-07 | DriveLM 1/2
+  [21:25:52] [Epoch 1/1] step 23700/27037 | loss 2.9056 (task=0.619 hzd=2.286) | lr 8.21e-07 | DriveLM 2/2
+  [21:31:24] [Epoch 1/1] step 23750/27037 | loss 2.9051 (task=0.619 hzd=2.286) | lr 7.97e-07 | DriveLM 1/2
+  [21:36:57] [Epoch 1/1] step 23800/27037 | loss 2.9047 (task=0.619 hzd=2.286) | lr 7.74e-07 | DriveLM 1/2
+  [21:42:30] [Epoch 1/1] step 23850/27037 | loss 2.9042 (task=0.619 hzd=2.286) | lr 7.50e-07 | DriveLM 1/2
+  [21:48:02] [Epoch 1/1] step 23900/27037 | loss 2.9037 (task=0.618 hzd=2.285) | lr 7.27e-07 | DriveLM 2/2
+  [21:53:35] [Epoch 1/1] step 23950/27037 | loss 2.9032 (task=0.618 hzd=2.285) | lr 7.04e-07 | DriveLM 1/2
+  [21:59:08] [Epoch 1/1] step 24000/27037 | loss 2.9026 (task=0.618 hzd=2.285) | lr 6.82e-07 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_24000
+  [22:04:42] [Epoch 1/1] step 24050/27037 | loss 2.9021 (task=0.617 hzd=2.285) | lr 6.60e-07 | DriveLM 1/2
+  [22:10:15] [Epoch 1/1] step 24100/27037 | loss 2.9015 (task=0.617 hzd=2.285) | lr 6.38e-07 | DriveLM 0/2
+  [22:15:48] [Epoch 1/1] step 24150/27037 | loss 2.9010 (task=0.617 hzd=2.284) | lr 6.17e-07 | DriveLM 0/2
+  [22:21:21] [Epoch 1/1] step 24200/27037 | loss 2.9005 (task=0.616 hzd=2.284) | lr 5.96e-07 | DriveLM 0/2
+  [22:26:54] [Epoch 1/1] step 24250/27037 | loss 2.8999 (task=0.616 hzd=2.284) | lr 5.75e-07 | DriveLM 0/2
+  [22:32:27] [Epoch 1/1] step 24300/27037 | loss 2.8995 (task=0.616 hzd=2.284) | lr 5.55e-07 | DriveLM 0/2
+  [22:38:00] [Epoch 1/1] step 24350/27037 | loss 2.8990 (task=0.615 hzd=2.284) | lr 5.35e-07 | DriveLM 1/2
+  [22:43:33] [Epoch 1/1] step 24400/27037 | loss 2.8985 (task=0.615 hzd=2.284) | lr 5.16e-07 | DriveLM 1/2
+  [22:49:05] [Epoch 1/1] step 24450/27037 | loss 2.8981 (task=0.615 hzd=2.283) | lr 4.96e-07 | DriveLM 1/2
+  [22:54:38] [Epoch 1/1] step 24500/27037 | loss 2.8976 (task=0.614 hzd=2.283) | lr 4.78e-07 | DriveLM 0/2
+  [23:00:11] [Epoch 1/1] step 24550/27037 | loss 2.8971 (task=0.614 hzd=2.283) | lr 4.59e-07 | DriveLM 0/2
+  [23:05:44] [Epoch 1/1] step 24600/27037 | loss 2.8965 (task=0.614 hzd=2.283) | lr 4.41e-07 | DriveLM 2/2
+  [23:11:17] [Epoch 1/1] step 24650/27037 | loss 2.8961 (task=0.614 hzd=2.283) | lr 4.23e-07 | DriveLM 1/2
+  [23:16:50] [Epoch 1/1] step 24700/27037 | loss 2.8956 (task=0.613 hzd=2.282) | lr 4.06e-07 | DriveLM 1/2
+  [23:22:23] [Epoch 1/1] step 24750/27037 | loss 2.8951 (task=0.613 hzd=2.282) | lr 3.89e-07 | DriveLM 1/2
+  [23:27:55] [Epoch 1/1] step 24800/27037 | loss 2.8946 (task=0.613 hzd=2.282) | lr 3.72e-07 | DriveLM 0/2
+  [23:33:28] [Epoch 1/1] step 24850/27037 | loss 2.8941 (task=0.612 hzd=2.282) | lr 3.56e-07 | DriveLM 0/2
+  [23:39:02] [Epoch 1/1] step 24900/27037 | loss 2.8937 (task=0.612 hzd=2.282) | lr 3.40e-07 | DriveLM 0/2
+  [23:44:34] [Epoch 1/1] step 24950/27037 | loss 2.8932 (task=0.612 hzd=2.282) | lr 3.24e-07 | DriveLM 1/2
+  [23:50:07] [Epoch 1/1] step 25000/27037 | loss 2.8927 (task=0.611 hzd=2.281) | lr 3.09e-07 | DriveLM 1/2
+  체크포인트 저장: checkpoints/student_distill_2/step_25000
+  [23:55:42] [Epoch 1/1] step 25050/27037 | loss 2.8921 (task=0.611 hzd=2.281) | lr 2.94e-07 | DriveLM 0/2
+  [00:01:15] [Epoch 1/1] step 25100/27037 | loss 2.8916 (task=0.611 hzd=2.281) | lr 2.79e-07 | DriveLM 2/2
+  [00:06:48] [Epoch 1/1] step 25150/27037 | loss 2.8912 (task=0.610 hzd=2.281) | lr 2.65e-07 | DriveLM 2/2
+  [00:12:20] [Epoch 1/1] step 25200/27037 | loss 2.8907 (task=0.610 hzd=2.281) | lr 2.51e-07 | DriveLM 1/2
+  [00:17:53] [Epoch 1/1] step 25250/27037 | loss 2.8902 (task=0.610 hzd=2.281) | lr 2.38e-07 | DriveLM 0/2
+  [00:23:26] [Epoch 1/1] step 25300/27037 | loss 2.8898 (task=0.609 hzd=2.280) | lr 2.25e-07 | DriveLM 0/2
+  [00:28:59] [Epoch 1/1] step 25350/27037 | loss 2.8892 (task=0.609 hzd=2.280) | lr 2.12e-07 | DriveLM 0/2
+  [00:34:35] [Epoch 1/1] step 25400/27037 | loss 2.8888 (task=0.609 hzd=2.280) | lr 2.00e-07 | DriveLM 1/2
+  [00:40:09] [Epoch 1/1] step 25450/27037 | loss 2.8883 (task=0.609 hzd=2.280) | lr 1.88e-07 | DriveLM 0/2
+  [00:45:42] [Epoch 1/1] step 25500/27037 | loss 2.8879 (task=0.608 hzd=2.280) | lr 1.76e-07 | DriveLM 0/2
+  [00:51:16] [Epoch 1/1] step 25550/27037 | loss 2.8874 (task=0.608 hzd=2.279) | lr 1.65e-07 | DriveLM 0/2
+  [00:56:48] [Epoch 1/1] step 25600/27037 | loss 2.8869 (task=0.608 hzd=2.279) | lr 1.54e-07 | DriveLM 1/2
+  [01:02:21] [Epoch 1/1] step 25650/27037 | loss 2.8864 (task=0.607 hzd=2.279) | lr 1.44e-07 | DriveLM 1/2
+  [01:07:54] [Epoch 1/1] step 25700/27037 | loss 2.8859 (task=0.607 hzd=2.279) | lr 1.33e-07 | DriveLM 0/2
+  [01:13:27] [Epoch 1/1] step 25750/27037 | loss 2.8854 (task=0.607 hzd=2.279) | lr 1.24e-07 | DriveLM 0/2
+  [01:19:00] [Epoch 1/1] step 25800/27037 | loss 2.8850 (task=0.606 hzd=2.279) | lr 1.14e-07 | DriveLM 1/2
+  [01:24:33] [Epoch 1/1] step 25850/27037 | loss 2.8846 (task=0.606 hzd=2.278) | lr 1.05e-07 | DriveLM 1/2
+  [01:30:06] [Epoch 1/1] step 25900/27037 | loss 2.8841 (task=0.606 hzd=2.278) | lr 9.65e-08 | DriveLM 0/2
+  [01:35:39] [Epoch 1/1] step 25950/27037 | loss 2.8837 (task=0.606 hzd=2.278) | lr 8.82e-08 | DriveLM 0/2
+  [01:41:12] [Epoch 1/1] step 26000/27037 | loss 2.8832 (task=0.605 hzd=2.278) | lr 8.03e-08 | DriveLM 2/2
+  체크포인트 저장: checkpoints/student_distill_2/step_26000
+  [01:46:46] [Epoch 1/1] step 26050/27037 | loss 2.8827 (task=0.605 hzd=2.278) | lr 7.28e-08 | DriveLM 0/2
+  [01:52:20] [Epoch 1/1] step 26100/27037 | loss 2.8823 (task=0.605 hzd=2.278) | lr 6.56e-08 | DriveLM 0/2
+  [01:57:53] [Epoch 1/1] step 26150/27037 | loss 2.8818 (task=0.604 hzd=2.277) | lr 5.88e-08 | DriveLM 0/2
+  [02:03:27] [Epoch 1/1] step 26200/27037 | loss 2.8814 (task=0.604 hzd=2.277) | lr 5.24e-08 | DriveLM 1/2
+  [02:09:00] [Epoch 1/1] step 26250/27037 | loss 2.8809 (task=0.604 hzd=2.277) | lr 4.63e-08 | DriveLM 2/2
+  [02:14:33] [Epoch 1/1] step 26300/27037 | loss 2.8805 (task=0.604 hzd=2.277) | lr 4.06e-08 | DriveLM 1/2
+  [02:20:07] [Epoch 1/1] step 26350/27037 | loss 2.8801 (task=0.603 hzd=2.277) | lr 3.53e-08 | DriveLM 1/2
+  [02:25:41] [Epoch 1/1] step 26400/27037 | loss 2.8796 (task=0.603 hzd=2.277) | lr 3.03e-08 | DriveLM 1/2
+  [02:31:15] [Epoch 1/1] step 26450/27037 | loss 2.8792 (task=0.603 hzd=2.276) | lr 2.58e-08 | DriveLM 2/2
+  [02:36:48] [Epoch 1/1] step 26500/27037 | loss 2.8789 (task=0.603 hzd=2.276) | lr 2.16e-08 | DriveLM 1/2
+  [02:42:22] [Epoch 1/1] step 26550/27037 | loss 2.8785 (task=0.602 hzd=2.276) | lr 1.77e-08 | DriveLM 2/2
+  [02:47:56] [Epoch 1/1] step 26600/27037 | loss 2.8780 (task=0.602 hzd=2.276) | lr 1.43e-08 | DriveLM 0/2
+  [02:53:30] [Epoch 1/1] step 26650/27037 | loss 2.8776 (task=0.602 hzd=2.276) | lr 1.12e-08 | DriveLM 0/2
+  [02:59:03] [Epoch 1/1] step 26700/27037 | loss 2.8771 (task=0.602 hzd=2.276) | lr 8.49e-09 | DriveLM 0/2
+  [03:04:37] [Epoch 1/1] step 26750/27037 | loss 2.8766 (task=0.601 hzd=2.275) | lr 6.16e-09 | DriveLM 1/2
+  [03:10:10] [Epoch 1/1] step 26800/27037 | loss 2.8762 (task=0.601 hzd=2.275) | lr 4.20e-09 | DriveLM 1/2
+  [03:15:43] [Epoch 1/1] step 26850/27037 | loss 2.8758 (task=0.601 hzd=2.275) | lr 2.62e-09 | DriveLM 0/2
+  [03:21:16] [Epoch 1/1] step 26900/27037 | loss 2.8752 (task=0.600 hzd=2.275) | lr 1.40e-09 | DriveLM 1/2
+  [03:26:49] [Epoch 1/1] step 26950/27037 | loss 2.8748 (task=0.600 hzd=2.275) | lr 5.66e-10 | DriveLM 0/2
+  [03:32:22] [Epoch 1/1] step 27000/27037 | loss 2.8745 (task=0.600 hzd=2.275) | lr 1.02e-10 | DriveLM 0/2
+  체크포인트 저장: checkpoints/student_distill_2/step_27000
+
+[Epoch 1 완료] avg_loss=2.8741 (task=0.600 hzd=2.274)
+
+  체크포인트 저장: checkpoints/student_distill_2/epoch_1
+
+Stage 3 Distillation 완료!
+최종 체크포인트: checkpoints/student_distill_2/epoch_1
