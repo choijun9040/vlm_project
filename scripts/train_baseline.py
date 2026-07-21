@@ -35,7 +35,7 @@ from dataloader import create_unified_dataloader
 CONFIG = {
     # 모델
     "model_name":         "Qwen/Qwen2.5-VL-3B-Instruct",
-    "output_dir":         "checkpoints/student_baseline",
+    "output_dir":         "checkpoints/student_baseline_2",
 
     # Resume
     "resume_from":        None,  # 체크포인트 경로 또는 None
@@ -55,9 +55,15 @@ CONFIG = {
     # 데이터
     "drivelm_json":       "data/QA_dataset_nus/v1_0_train_nus.json",
     "nuscenesqa_json":    "data/nuscenes_qa/NuScenes_train_questions.json",
-    "hazard_labels_path": "data/hazard_labels.json",  # 샘플링 비율용으로만 사용
+    "hazard_labels_path": "data/hazard_labels.json",
     "drivelm_ratio":      0.4,
     "num_workers":        4,
+
+    # 위험도 오버샘플링 — train_distillation.py("Ours") / train_kd_only.py와
+    # 동일하게 맞춤. 세 스크립트 모두 같은 데이터 분포로 학습해야 "증류 유무"
+    # 축의 비교(ablation)가 손실 함수 차이만 isolate함.
+    "hazard_oversample":      True,
+    "hazard_oversample_beta": 0.5,
 
     # 로깅/저장
     "log_every":          50,
@@ -124,7 +130,7 @@ def train(config):
         mixed_precision="bf16",
     )
 
-    # hazard_labels는 DataLoader 샘플링 비율용으로만 사용
+    # hazard_labels는 loss에는 쓰이지 않고 DataLoader 오버샘플링에만 사용
     import json
     with open(config["hazard_labels_path"]) as f:
         hazard_labels = json.load(f)
@@ -140,6 +146,8 @@ def train(config):
         drivelm_ratio=config["drivelm_ratio"],
         batch_size=config["batch_size"],
         num_workers=config["num_workers"],
+        hazard_oversample=config.get("hazard_oversample", False),
+        hazard_oversample_beta=config.get("hazard_oversample_beta", 0.5),
     )
 
     optimizer = torch.optim.AdamW(

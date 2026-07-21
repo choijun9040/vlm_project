@@ -16,6 +16,7 @@ NuScenes-QA:
 """
 
 import json
+from collections import Counter
 from pathlib import Path
 from PIL import Image
 
@@ -360,6 +361,8 @@ def create_unified_dataloader(
     batch_size:      int   = 8,
     num_workers:     int   = 4,
     use_camera:      str   = "CAM_FRONT",
+    hazard_oversample:      bool  = False,  # DriveLM 내 희귀 위험도 샘플 오버샘플링
+    hazard_oversample_beta: float = 0.5,    # 1.0=완전 역빈도, 0.0=오버샘플링 없음
 ) -> DataLoader:
     """
     DriveLM과 NuScenes-QA를 WeightedRandomSampler로 통합.
@@ -368,6 +371,11 @@ def create_unified_dataloader(
     NuScenes-QA: 54,607개 (매핑 가능 샘플)
 
     drivelm_ratio=0.4 → 배치의 40%가 DriveLM, 60%가 NuScenes-QA
+
+    hazard_oversample=True이면, DriveLM 서브셋 내부에서 위험도 점수가 희귀할수록
+    (hazard_labels.json 기준 4~5점은 5~6%대에 불과) 샘플링 확률을 역빈도로 끌어올린다.
+    DriveLM 전체 비중(drivelm_ratio)은 그대로 유지되고, DriveLM 내부 분포만 재배분된다.
+    (참고: hazard=1.0인 NuScenes-QA는 대상이 아님 — 위험도 라벨은 DriveLM 키프레임에만 존재)
     """
     # token_to_images 공유
     token_to_images = build_token_to_images(drivelm_json)
@@ -395,7 +403,37 @@ def create_unified_dataloader(
     w_d = drivelm_ratio       / n_d
     w_n = (1 - drivelm_ratio) / n_n
 
-    weights = [w_d] * n_d + [w_n] * n_n
+    if hazard_oversample and hazard_labels:
+        # 샘플(=QA쌍) 단위로 위험도 점수 조회 — 프레임 하나가 여러 QA를 가지므로
+        # task/qa_index 단위 빈도가 실제 WeightedRandomSampler가 뽑는 단위와 일치함
+        drivelm_hazard = [
+            round(hazard_labels.get(s["frame_token"], 1.0))
+            for s in ds_drivelm.samples
+        ]
+        hazard_counts = Counter(drivelm_hazard)
+
+        # 점수가 희귀할수록 boost가 커지도록 빈도의 역거듭제곱(beta) 사용
+        # beta=1.0 -> 완전 역빈도(모든 점수가 균등 등장), beta=0.5 -> 완화된 역빈도
+        boost = {
+            score: (n_d / count) ** hazard_oversample_beta
+            for score, count in hazard_counts.items()
+        }
+        raw_boosts = [boost[h] for h in drivelm_hazard]
+        mean_boost = sum(raw_boosts) / len(raw_boosts)
+
+        # 평균 boost가 1이 되도록 정규화 -> DriveLM 총 비중(w_d * n_d = drivelm_ratio)은 불변,
+        # DriveLM 내부에서 희귀 위험도 샘플의 등장 확률만 재배분됨
+        drivelm_weights = [w_d * (b / mean_boost) for b in raw_boosts]
+
+        print(f"  [hazard oversample] 점수별 개수: {dict(sorted(hazard_counts.items()))}")
+        print(
+            "  [hazard oversample] 점수별 boost 배수: "
+            + str({s: round(b / mean_boost, 2) for s, b in sorted(boost.items())})
+        )
+    else:
+        drivelm_weights = [w_d] * n_d
+
+    weights = drivelm_weights + [w_n] * n_n
 
     combined = ConcatDataset([ds_drivelm, ds_nuscenesqa])
     sampler  = WeightedRandomSampler(

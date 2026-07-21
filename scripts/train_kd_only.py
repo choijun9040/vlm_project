@@ -42,7 +42,7 @@ CONFIG = {
     "teacher_base":       "Qwen/Qwen2.5-VL-7B-Instruct",
     "teacher_lora":       "checkpoints/teacher_lora/epoch_1",
     "student_base":       "Qwen/Qwen2.5-VL-3B-Instruct",
-    "output_dir":         "checkpoints/student_kd_only",
+    "output_dir":         "checkpoints/student_kd_only_2",
 
     # Resume
     "resume_from":        None,
@@ -71,6 +71,12 @@ CONFIG = {
     "hazard_labels_path": "data/hazard_labels.json",
     "drivelm_ratio":      0.4,
     "num_workers":        4,
+
+    # 위험도 오버샘플링 — train_distillation.py("Ours")와 동일하게 맞춤.
+    # 손실 가중치(위험도 가중 vs 균등) 효과만 isolate하려면 데이터 분포는
+    # 동일해야 하므로, Ours와 같은 값으로 맞춰서 켬.
+    "hazard_oversample":      True,
+    "hazard_oversample_beta": 0.5,
 
     # 로깅/저장
     "log_every":          50,
@@ -199,7 +205,7 @@ def train(config):
 
     with open(config["hazard_labels_path"]) as f:
         hazard_labels = json.load(f)
-    print(f"\n위험도 라벨 로드: {len(hazard_labels)}개 (샘플링 비율용)")
+    print(f"\n위험도 라벨 로드: {len(hazard_labels)}개 (오버샘플링에 사용, loss에는 미사용)")
 
     teacher, processor = build_teacher(config)
     student = build_student(config)
@@ -213,6 +219,8 @@ def train(config):
         drivelm_ratio=config["drivelm_ratio"],
         batch_size=config["batch_size"],
         num_workers=config["num_workers"],
+        hazard_oversample=config.get("hazard_oversample", False),
+        hazard_oversample_beta=config.get("hazard_oversample_beta", 0.5),
     )
 
     criterion_kd = UniformKDLoss(temperature=config["kd_temperature"])

@@ -21,6 +21,7 @@ Resume:
 import json
 import math
 import sys
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
@@ -75,6 +76,11 @@ CONFIG = {
     "drivelm_ratio":      0.4,
     "num_workers":        4,
 
+    # 위험도 오버샘플링 — DriveLM 내 4~5점(희귀) 샘플의 등장 빈도를 끌어올림
+    # (hazard_labels.log 기준 1~5점 분포가 2~3점에 88.6% 쏠려 있음)
+    "hazard_oversample":      True,
+    "hazard_oversample_beta": 0.5,
+
     # 로깅/저장
     "log_every":          50,
     "save_every_steps":   1000,
@@ -85,20 +91,51 @@ CONFIG = {
 # 1. Loss 함수
 # =============================================================================
 
+def compute_hazard_percentiles(hazard_labels: dict) -> dict:
+    """
+    데이터셋 내 각 위험도 점수(1~5)의 population percentile(중간 순위 기준)을 계산.
+
+    hazard_labels.log 기준 원본 분포가 2~3점에 88.6% 쏠려 있어, 점수를 그대로
+    (h-1)/4로 정규화하면 대다수 샘플이 좁은 가중치 구간에 몰린다. 점수를 percentile로
+    바꾸면 원본 분포가 어떻게 치우쳐 있든 가중치 스펙트럼이 항상 0~1 범위로 고르게
+    펼쳐진다 (희귀한 4~5점이 실제로 더 강하게 대비되어 반영됨).
+    """
+    scores = [round(v) for v in hazard_labels.values()]
+    total  = len(scores)
+    counts = Counter(scores)
+
+    cum = 0
+    percentiles = {}
+    for score in sorted(counts):
+        count = counts[score]
+        percentiles[score] = (cum + count / 2) / total
+        cum += count
+    return percentiles
+
+
 class HazardWeightedKDLoss(nn.Module):
     """
     L_hazard: 위험 가중 Output KD.
-    w(h) = exp(alpha * (h-1)/4)
-    h=1 (안전) -> w=1.0, h=5 (위험) -> w=2.7
+    w(h) = exp(alpha * percentile(h))
+    percentile(h)는 데이터셋 내 점수 h의 population percentile(0~1) —
+    h=1 (안전, 흔함) -> percentile 낮음 -> w≈1.0
+    h=5 (위험, 희귀) -> percentile 높음 -> w≈exp(alpha)
     """
-    def __init__(self, temperature=4.0, alpha=1.0):
+    def __init__(self, hazard_percentiles: dict, temperature=4.0, alpha=1.0):
         super().__init__()
         self.T     = temperature
         self.alpha = alpha
 
+        max_score = max(hazard_percentiles)
+        lookup = torch.zeros(max_score + 1)
+        for score, pct in hazard_percentiles.items():
+            lookup[score] = pct
+        self.register_buffer("percentile_lookup", lookup)
+
     def hazard_weight(self, hazard_scores):
-        normalized = (hazard_scores - 1.0) / 4.0
-        return torch.exp(self.alpha * normalized)
+        idx = hazard_scores.round().long().clamp(0, self.percentile_lookup.shape[0] - 1)
+        percentile = self.percentile_lookup[idx]
+        return torch.exp(self.alpha * percentile)
 
     def forward(self, student_logits, teacher_logits, hazard_scores, labels):
         T = self.T
@@ -212,6 +249,9 @@ def train(config):
         hazard_labels = json.load(f)
     print(f"\n위험도 라벨 로드: {len(hazard_labels)}개")
 
+    hazard_percentiles = compute_hazard_percentiles(hazard_labels)
+    print(f"위험도 percentile: {hazard_percentiles}")
+
     teacher, processor = build_teacher(config)
     student = build_student(config)
 
@@ -224,12 +264,15 @@ def train(config):
         drivelm_ratio=config["drivelm_ratio"],
         batch_size=config["batch_size"],
         num_workers=config["num_workers"],
+        hazard_oversample=config.get("hazard_oversample", False),
+        hazard_oversample_beta=config.get("hazard_oversample_beta", 0.5),
     )
 
     criterion_hazard = HazardWeightedKDLoss(
+        hazard_percentiles=hazard_percentiles,
         temperature=config["kd_temperature"],
         alpha=config["hazard_alpha"],
-    )
+    ).to(accelerator.device)
 
     optimizer = torch.optim.AdamW(
         filter(lambda p: p.requires_grad, student.parameters()),
